@@ -99,7 +99,7 @@ jobs:
     needs: [build_repo]
     runs-on: ubuntu-latest
     # Solution 1 from https://github.com/actions/runner/issues/2566#issuecomment-3053484216
-    if: 'always() && ${{ github.repository == ''zeldaret/af'' }}'
+    if: ${{ always() && github.repository == 'zeldaret/af' }}
     steps:
       - run: |
          if [ "${{ needs.build_repo.result }}" != "success" ]; then
