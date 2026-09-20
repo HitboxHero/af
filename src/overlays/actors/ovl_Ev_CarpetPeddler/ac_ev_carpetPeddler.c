@@ -27,7 +27,9 @@ ActorProfile Ev_CarpetPeddler_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_CarpetPeddler/ac_ev_carpetPeddler/aECPD_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_CarpetPeddler/ac_ev_carpetPeddler/aECPD_actor_save.s")
+void aECPD_actor_save(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_C8(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_CarpetPeddler/ac_ev_carpetPeddler/aECPD_actor_dt.s")
 

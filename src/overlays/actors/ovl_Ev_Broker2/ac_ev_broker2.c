@@ -27,11 +27,15 @@ ActorProfile Ev_Broker2_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Broker2/ac_ev_broker2/aEBR2_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Broker2/ac_ev_broker2/aEBR2_actor_save.s")
+void aEBR2_actor_save(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_C8(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Broker2/ac_ev_broker2/aEBR2_actor_dt.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Broker2/ac_ev_broker2/aEBR2_actor_init.s")
+void aEBR2_actor_init(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_CC(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Broker2/ac_ev_broker2/func_809D8404_jp.s")
 
