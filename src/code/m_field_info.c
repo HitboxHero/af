@@ -575,11 +575,46 @@ u16* mFI_BkNumtoUtFGTop(s32 blockX, s32 blockZ) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008A3BC_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008A410_jp.s")
+u16* func_8008A410_jp(s32 utX, s32 utZ) {
+    s32 blockX;
+    s32 blockZ;
+
+    if (mFI_UtNumCheck(utX, utZ, mFI_GetBlockXMax(), mFI_GetBlockZMax()) == FALSE) {
+        return NULL;
+    } else if (mFI_UtNum2BlockNum(&blockX, &blockZ, utX, utZ) == FALSE) {
+        return NULL;
+    } else {
+        s32 blockNum;
+        s32 blockUtX;
+        s32 blockUtZ;
+        u16* fg;
+
+        mFI_GetUtNumInBK(&blockUtX, &blockUtZ, utX, utZ);
+        blockNum = mFI_GetBlockNum(blockX, blockZ);
+        fg = g_fdinfo->blockInfo[blockNum].fgInfo.itemsPtr;
+
+        if (fg == NULL) {
+            return NULL;
+        } else {
+            fg += blockUtZ * UT_X_NUM + blockUtX;
+            return fg;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008A4F8_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/mFI_GetUnitFG.s")
+u16* mFI_GetUnitFG(xyz_t wpos) {
+    s32 utX;
+    s32 utZ;
+    s32 validWpos = mFI_Wpos2UtNum(&utX, &utZ, wpos);
+
+    if (!validWpos) {
+        return NULL;
+    } else {
+        return func_8008A410_jp(utX, utZ);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008A608_jp.s")
 
@@ -862,7 +897,20 @@ void func_8008CC1C_jp(u16* items) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008CD24_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008CD74_jp.s")
+void func_8008CD74_jp(s32 blockX, s32 blockZ) {
+    u16* items = mFI_BkNumtoUtFGTop(blockX, blockZ);
+    s32 i;
+
+    if (items != NULL) {
+        for (i = 0; i < UT_TOTAL_NUM; i++) {
+            if (*items == 0x62) { /* Honeycomb. */
+                items[0] = EMPTY_NO;
+            }
+
+            items++;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008CE00_jp.s")
 
