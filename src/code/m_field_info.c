@@ -574,7 +574,15 @@ Gfx* func_80089B1C_jp(s32 bx, s32 bz) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_80089B94_jp.s")
+Gfx* func_80089B94_jp(s32 bx, s32 bz) {
+    s32 num = mFI_GetBlockNum(bx, bz);
+
+    if (mFI_BlockCheck(bx, bz) == FALSE) {
+        return NULL;
+    } else {
+        return g_fdinfo->blockInfo[num].bgInfo.unk_008;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_80089C0C_jp.s")
 
