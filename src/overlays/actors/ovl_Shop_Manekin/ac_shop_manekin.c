@@ -48,7 +48,8 @@ ActorProfile Shop_Manekin_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Shop_Manekin/ac_shop_manekin/Shop_Manekin_Actor_draw.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Shop_Manekin/ac_shop_manekin/Shop_Manekin_Actor_move.s")
+void Shop_Manekin_Actor_move(Actor* thisx UNUSED, Game_Play* game_play UNUSED) {
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Shop_Manekin/ac_shop_manekin/func_80959F34_jp.s")
 

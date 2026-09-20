@@ -87,4 +87,5 @@ ActorProfile Mikanbox_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Mikanbox/ac_mikanbox/func_805b4054.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Mikanbox/ac_mikanbox/aMIK_actor_save.s")
+void aMIK_actor_save(Actor* thisx UNUSED, Game_Play* game_play UNUSED) {
+}

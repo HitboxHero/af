@@ -36,9 +36,11 @@ ActorProfile Shop_Level_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Shop_Level/ac_shop_level/Shop_Level_Actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Shop_Level/ac_shop_level/Shop_Level_Actor_dt.s")
+void Shop_Level_Actor_dt(Actor* thisx UNUSED, Game_Play* game_play UNUSED) {
+}
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Shop_Level/ac_shop_level/Shop_Level_Actor_draw.s")
+void Shop_Level_Actor_draw(Actor* thisx UNUSED, Game_Play* game_play UNUSED) {
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Shop_Level/ac_shop_level/func_80958B38_jp.s")
 

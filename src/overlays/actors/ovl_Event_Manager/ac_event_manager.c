@@ -41,7 +41,8 @@ ActorProfile Event_Manager_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Event_Manager/ac_event_manager/aEvMgr_move.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Event_Manager/ac_event_manager/aEvMgr_draw.s")
+void aEvMgr_draw(Actor* thisx UNUSED, Game_Play* game_play UNUSED) {
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Event_Manager/ac_event_manager/func_8095BD28_jp.s")
 

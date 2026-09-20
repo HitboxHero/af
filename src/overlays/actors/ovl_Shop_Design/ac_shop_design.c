@@ -50,9 +50,11 @@ ActorProfile Shop_Design_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Shop_Design/ac_shop_design/Shop_Design_Actor_dt.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Shop_Design/ac_shop_design/Shop_Design_Actor_draw.s")
+void Shop_Design_Actor_draw(Actor* thisx UNUSED, Game_Play* game_play UNUSED) {
+}
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Shop_Design/ac_shop_design/Shop_Design_Actor_move.s")
+void Shop_Design_Actor_move(Actor* thisx UNUSED, Game_Play* game_play UNUSED) {
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Shop_Design/ac_shop_design/func_809547E4_jp.s")
 

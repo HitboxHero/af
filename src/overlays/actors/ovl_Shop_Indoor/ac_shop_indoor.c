@@ -52,7 +52,8 @@ ActorProfile Shop_Indoor_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Shop_Indoor/ac_shop_indoor/Shop_Indoor_Actor_draw.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Shop_Indoor/ac_shop_indoor/Shop_Indoor_Actor_move.s")
+void Shop_Indoor_Actor_move(Actor* thisx UNUSED, Game_Play* game_play UNUSED) {
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Shop_Indoor/ac_shop_indoor/func_8095B33C_jp.s")
 
