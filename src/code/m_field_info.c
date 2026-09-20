@@ -749,11 +749,31 @@ s32 func_8008B878_jp(u16* checkItems, s32 checkItemCount) {
     return FALSE;
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008B9F8_jp.s")
+u8* func_8008B9F8_jp(s32 blockX, s32 blockZ) {
+    u8* haniwaStep = NULL;
+
+    if (mFI_BlockCheck(blockX, blockZ) == TRUE) {
+        s32 blockNum = mFI_GetBlockNum(blockX, blockZ);
+
+        haniwaStep = g_fdinfo->blockInfo[blockNum].fgInfo.haniwaStep;
+    }
+
+    return haniwaStep;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008BA74_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008BAEC_jp.s")
+u16 func_8008BAEC_jp(s32 blockX, s32 blockZ) {
+    u16 bitData = 0;
+
+    if (mFI_BlockCheck(blockX, blockZ)) {
+        s32 blockNum = mFI_GetBlockNum(blockX, blockZ);
+
+        bitData = g_fdinfo->blockInfo[blockNum].fgInfo.unk_08C;
+    }
+
+    return bitData;
+}
 
 void func_8008BB64_jp(s32 blockX, s32 blockZ, FieldMakeMoveActor* moveActor) {
     s32 blockNum = mFI_GetBlockNum(blockX, blockZ);
@@ -895,7 +915,15 @@ s32 mFI_GetLineDeposit(u16* deposit, s32 utX) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C8C4_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C938_jp.s")
+s32 func_8008C938_jp(u16* item, xyz_t wpos UNUSED) {
+    s32 result = FALSE;
+
+    if (*item == EMPTY_NO) {
+        result = TRUE;
+    }
+
+    return result;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C964_jp.s")
 
