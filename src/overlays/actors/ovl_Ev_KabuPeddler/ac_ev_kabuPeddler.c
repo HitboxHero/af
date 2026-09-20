@@ -27,11 +27,15 @@ ActorProfile Ev_KabuPeddler_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_KabuPeddler/ac_ev_kabuPeddler/aEKPD_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_KabuPeddler/ac_ev_kabuPeddler/aEKPD_actor_save.s")
+void aEKPD_actor_save(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_C8(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_KabuPeddler/ac_ev_kabuPeddler/aEKPD_actor_dt.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_KabuPeddler/ac_ev_kabuPeddler/aEKPD_actor_init.s")
+void aEKPD_actor_init(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_CC(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_KabuPeddler/ac_ev_kabuPeddler/func_809E4B30_jp.s")
 

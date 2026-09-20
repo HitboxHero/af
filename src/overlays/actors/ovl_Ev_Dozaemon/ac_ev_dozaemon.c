@@ -33,7 +33,9 @@ void aEDZ_actor_save(Actor* thisx, Game_Play* game_play UNUSED) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Dozaemon/ac_ev_dozaemon/aEDZ_actor_dt.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Dozaemon/ac_ev_dozaemon/aEDZ_actor_init.s")
+void aEDZ_actor_init(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_CC(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Dozaemon/ac_ev_dozaemon/func_80A981AC_jp.s")
 

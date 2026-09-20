@@ -27,11 +27,15 @@ ActorProfile Ev_Gypsy_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Gypsy/ac_ev_gypsy/aEGPS_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Gypsy/ac_ev_gypsy/aEGPS_actor_save.s")
+void aEGPS_actor_save(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_C8(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Gypsy/ac_ev_gypsy/aEGPS_actor_dt.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Gypsy/ac_ev_gypsy/aEGPS_actor_init.s")
+void aEGPS_actor_init(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_CC(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Gypsy/ac_ev_gypsy/func_809DC590_jp.s")
 
