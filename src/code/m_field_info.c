@@ -631,7 +631,23 @@ u16* mFI_BkNumtoUtFGTop(s32 blockX, s32 blockZ) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008B4C0_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008B598_jp.s")
+s32 func_8008B598_jp(s32 blockX, s32 blockZ, u16 minItem, u16 maxItem) {
+    u16* fg = mFI_BkNumtoUtFGTop(blockX, blockZ);
+    s32 count = 0;
+    s32 i;
+
+    if (fg != NULL) {
+        for (i = 0; i < UT_TOTAL_NUM; i++) {
+            if (fg[0] >= minItem && fg[0] <= maxItem) {
+                count++;
+            }
+
+            fg++;
+        }
+    }
+
+    return count;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008B66C_jp.s")
 
@@ -659,7 +675,44 @@ s32 func_8008B7F4_jp(s32* utX, s32* utZ, u16 item, s32 blockX, s32 blockZ) {
     return result;
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008B878_jp.s")
+s32 func_8008B878_jp(u16* checkItems, s32 checkItemCount) {
+    u16* checkStart = checkItems;
+
+    if (mFI_CheckFieldData() == TRUE) {
+        s32 blockXMax = mFI_GetBlockXMax();
+        s32 blockZMax = mFI_GetBlockZMax();
+        u16* fg;
+        s32 blockZ;
+
+        for (blockZ = 0; blockZ < blockZMax; blockZ++) {
+            s32 blockX;
+
+            for (blockX = 0; blockX < blockXMax; blockX++) {
+                fg = mFI_BkNumtoUtFGTop(blockX, blockZ);
+
+                if (fg != NULL) {
+                    s32 unit;
+
+                    for (unit = 0; unit < UT_TOTAL_NUM; unit++, fg++) {
+                        s32 i;
+
+                        checkItems = checkStart;
+                        for (i = 0; i < checkItemCount; i++) {
+                            if (checkItems[0] == fg[0]) {
+                                return TRUE;
+                            }
+
+                            checkItems++;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    return FALSE;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008B9F8_jp.s")
 
@@ -786,7 +839,24 @@ s32 mFI_GetLineDeposit(u16* deposit, s32 utX) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008CAD8_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008CC1C_jp.s")
+void func_8008CC1C_jp(u16* items) {
+    s32 i;
+
+    if (items == NULL) {
+        return;
+    }
+
+    for (i = 0; i < UT_TOTAL_NUM; i++) {
+        /* Ordinary holes and the glowing-hole item. */
+        if (*items >= 0x11 && *items <= 0x29) {
+            items[0] = EMPTY_NO;
+        } else if (*items == 0x5D) {
+            items[0] = EMPTY_NO;
+        }
+
+        items++;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008CCFC_jp.s")
 
