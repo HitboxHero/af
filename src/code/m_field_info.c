@@ -637,7 +637,27 @@ u16* mFI_BkNumtoUtFGTop(s32 blockX, s32 blockZ) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008B774_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008B7F4_jp.s")
+s32 func_8008B7F4_jp(s32* utX, s32* utZ, u16 item, s32 blockX, s32 blockZ) {
+    u16* fg = mFI_BkNumtoUtFGTop(blockX, blockZ);
+    s32 result = FALSE;
+
+    if (fg != NULL) {
+        s32 i;
+
+        for (i = 0; i < UT_TOTAL_NUM; i++) {
+            if (fg[0] == item) {
+                utX[0] = i & 15;
+                utZ[0] = i >> 4;
+                result = TRUE;
+                break;
+            }
+
+            fg++;
+        }
+    }
+
+    return result;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008B878_jp.s")
 
@@ -691,9 +711,23 @@ s32 func_8008BE00_jp(FieldMakeMoveActor* moveActorList, s32 listSize) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/mFI_GetDepositP.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C344_jp.s")
+void func_8008C344_jp(s32 blockX, s32 blockZ) {
+    u16* deposit = mFI_GetDepositP(blockX, blockZ);
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C390_jp.s")
+    if (deposit != NULL) {
+        s32 i;
+
+        for (i = 0; i < UT_Z_NUM; i++) {
+            deposit[0] = 0;
+            deposit++;
+        }
+    }
+}
+
+s32 func_8008C390_jp(u16* deposit, s32 utX) {
+    deposit[0] |= 1U << utX;
+    return TRUE;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C3B0_jp.s")
 
