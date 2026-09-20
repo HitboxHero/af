@@ -959,7 +959,18 @@ s32 func_8008C3E8_jp(u16* deposit, s32 utX, s32 utZ, s32 type) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C498_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C4B8_jp.s")
+s32 func_8008C4B8_jp(s32 bx, s32 bz, s32 utX, s32 utZ, s32 type) {
+    u16* deposit;
+    s32 res = FALSE;
+
+    deposit = mFI_GetDepositP(bx, bz);
+
+    if (deposit != NULL) {
+        res = func_8008C3E8_jp(deposit, utX, utZ, type);
+    }
+
+    return res;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C504_jp.s")
 
@@ -967,7 +978,21 @@ s32 func_8008C3E8_jp(u16* deposit, s32 utX, s32 utZ, s32 type) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C548_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C56C_jp.s")
+s32 func_8008C56C_jp(s32 utX, s32 utZ, s32 type) {
+    extern s32 func_8008C4B8_jp(s32 bx, s32 bz, s32 utX, s32 utZ, s32 type);
+    s32 bx;
+    s32 bz;
+    s32 blockUtX;
+    s32 blockUtZ;
+    s32 res = FALSE;
+
+    if (mFI_UtNum2BlockNum(&bx, &bz, utX, utZ) == TRUE &&
+        mFI_GetUtNumInBK(&blockUtX, &blockUtZ, utX, utZ) == TRUE) {
+        res = func_8008C4B8_jp(bx, bz, blockUtX, blockUtZ, type);
+    }
+
+    return res;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C5F0_jp.s")
 
@@ -987,7 +1012,17 @@ s32 func_8008C3E8_jp(u16* deposit, s32 utX, s32 utZ, s32 type) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C830_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C84C_jp.s")
+s32 func_8008C84C_jp(u16* item, xyz_t wpos) {
+    extern s32 func_8008C764_jp(u16 item);
+    extern s32 func_8008C708_jp(xyz_t wpos);
+    s32 res = FALSE;
+
+    if (func_8008C764_jp(*item) == TRUE && func_8008C708_jp(wpos) == TRUE) {
+        res = TRUE;
+    }
+
+    return res;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C8C4_jp.s")
 
