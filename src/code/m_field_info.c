@@ -729,7 +729,10 @@ s32 func_8008C390_jp(u16* deposit, s32 utX) {
     return TRUE;
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C3B0_jp.s")
+s32 func_8008C3B0_jp(u16* deposit, s32 utX) {
+    deposit[0] &= ~(1U << utX);
+    return FALSE;
+}
 
 s32 mFI_GetLineDeposit(u16* deposit, s32 utX) {
     return (deposit[0] >> utX) & 1;
