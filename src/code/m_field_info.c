@@ -1024,7 +1024,17 @@ s32 func_8008C84C_jp(u16* item, xyz_t wpos) {
     return res;
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C8C4_jp.s")
+s32 func_8008C8C4_jp(u16* item, xyz_t wpos) {
+    extern s32 func_8008C764_jp(u16 item);
+    extern s32 func_8008C708_jp(xyz_t wpos);
+    s32 res = FALSE;
+
+    if (func_8008C764_jp(*item) == TRUE && func_8008C708_jp(wpos) == FALSE) {
+        res = TRUE;
+    }
+
+    return res;
+}
 
 s32 func_8008C938_jp(u16* item, xyz_t wpos UNUSED) {
     s32 result = FALSE;
@@ -1051,7 +1061,27 @@ s32 func_8008C964_jp(u16* item, xyz_t wpos UNUSED) {
     return res;
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008CA14_jp.s")
+s32 func_8008CA14_jp(u16* item, xyz_t wpos) {
+    extern s32 func_8008C764_jp(u16 item);
+    extern s32 func_8008C708_jp(xyz_t wpos);
+    s32 res = FALSE;
+
+    if (func_8008C708_jp(wpos) == TRUE) {
+        if (func_8008C764_jp(*item) == FALSE) {
+            res = TRUE;
+        }
+    } else {
+        /* Buried pitfall holes and the shining spot. */
+        s32 valid = (*item >= 0x2A && *item <= 0x42) || *item == 0x5C;
+
+        if (valid == TRUE) {
+            item[0] = bg_item_fg_sub_dig2take_conv(*item);
+            res = TRUE;
+        }
+    }
+
+    return res;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008CAD8_jp.s")
 
