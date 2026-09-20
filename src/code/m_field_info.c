@@ -755,13 +755,42 @@ s32 func_8008B878_jp(u16* checkItems, s32 checkItemCount) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008BAEC_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008BB64_jp.s")
+void func_8008BB64_jp(s32 blockX, s32 blockZ, FieldMakeMoveActor* moveActor) {
+    s32 blockNum = mFI_GetBlockNum(blockX, blockZ);
+    s16* bitData = &g_fdinfo->blockInfo[blockNum].fgInfo.unk_08C;
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008BBF0_jp.s")
+    if (bitData != NULL) {
+        for (i = 0; i < mFM_MOVE_ACTOR_NUM; i++) {
+            if (moveActor->nameId == EMPTY_NO) {
+                break;
+            }
+
+            /* The signed storage holds an unsigned 16-bit occupancy mask. */
+            bitData[0] = (u16)bitData[0] | (1U << i);
+            moveActor++;
+        }
+    }
+}
+
+void func_8008BBF0_jp(s32 blockX, s32 blockZ, u16 bitData) {
+    if (mFI_BlockCheck(blockX, blockZ)) {
+        s32 blockNum = mFI_GetBlockNum(blockX, blockZ);
+
+        g_fdinfo->blockInfo[blockNum].fgInfo.unk_08C = bitData;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/mFI_SetMoveActorBitData_ON.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008BCFC_jp.s")
+void func_8008BCFC_jp(s16 moveActorIndex, s32 blockX, s32 blockZ) {
+    if (mFI_BlockCheck(blockX, blockZ) && moveActorIndex >= 0 && moveActorIndex < mFM_MOVE_ACTOR_NUM) {
+        s32 blockNum = mFI_GetBlockNum(blockX, blockZ);
+        s16* bitData = &g_fdinfo->blockInfo[blockNum].fgInfo.unk_08C;
+        /* The signed storage holds an unsigned 16-bit occupancy mask. */
+        bitData[0] = (u16)bitData[0] & ~(1U << moveActorIndex);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/mFI_MyMoveActorBitData_ON.s")
 
