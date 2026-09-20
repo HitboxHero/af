@@ -564,7 +564,15 @@ FieldMakeBGSoundSource* mFI_GetSoundSourcePBlockNum(s32 blockX, s32 blockZ) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_80089AAC_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_80089B1C_jp.s")
+Gfx* func_80089B1C_jp(s32 bx, s32 bz) {
+    s32 num = mFI_GetBlockNum(bx, bz);
+
+    if (mFI_BlockCheck(bx, bz) == FALSE) {
+        return NULL;
+    } else {
+        return g_fdinfo->blockInfo[num].bgInfo.unk_004;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_80089B94_jp.s")
 
@@ -896,7 +904,17 @@ s32 mFI_GetLineDeposit(u16* deposit, s32 utX) {
     return (deposit[0] >> utX) & 1;
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C3E8_jp.s")
+extern s32 (*D_80106978_jp[3])(u16*, s32);
+
+s32 func_8008C3E8_jp(u16* deposit, s32 utX, s32 utZ, s32 type) {
+    s32 res = FALSE;
+
+    if (deposit != NULL && utX >= 0 && utX < UT_X_NUM && utZ >= 0 && utZ < UT_Z_NUM) {
+        res = (*D_80106978_jp[type])(deposit + utZ, utX);
+    }
+
+    return res;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C458_jp.s")
 
@@ -946,7 +964,20 @@ s32 func_8008C938_jp(u16* item, xyz_t wpos UNUSED) {
     return result;
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C964_jp.s")
+s32 func_8008C964_jp(u16* item, xyz_t wpos UNUSED) {
+    s32 res = FALSE;
+
+    if ((*item >= FLOWER_LEAVES_PANSIES0 && *item <= FLOWER_TULIP2) ||
+        (*item >= 1 && *item <= 4) || (*item >= 8 && *item <= 10) ||
+        (*item == TREE_SAPLING) || (*item == TREE_APPLE_SAPLING) || (*item == TREE_ORANGE_SAPLING) ||
+        (*item == TREE_PEACH_SAPLING) || (*item == TREE_PEAR_SAPLING) || (*item == TREE_CHERRY_SAPLING) ||
+        (*item == DEAD_SAPLING) || (*item == TREE_1000BELLS_SAPLING) || (*item == TREE_10000BELLS_SAPLING) ||
+        (*item == TREE_30000BELLS_SAPLING) || (*item == TREE_100BELLS_SAPLING)) {
+        res = TRUE;
+    }
+
+    return res;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008CA14_jp.s")
 
