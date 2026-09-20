@@ -525,7 +525,28 @@ mCoBG_unkStructUnion* mFI_GetUnitCol(xyz_t wpos) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_800898F4_jp.s")
+u8 func_800898F4_jp(s32 utX, s32 utZ) {
+    u8* keepHeight;
+    s32 blockUtX;
+    s32 blockUtZ;
+    s32 blockX;
+    s32 blockZ;
+
+    if (mFI_UtNumCheck(utX, utZ, mFI_GetBlockXMax(), mFI_GetBlockZMax()) == FALSE) {
+        return 31;
+    } else if (mFI_UtNum2BlockNum(&blockX, &blockZ, utX, utZ) == FALSE) {
+        return 31;
+    } else {
+        s32 blockNum;
+
+        mFI_GetUtNumInBK(&blockUtX, &blockUtZ, utX, utZ);
+        blockNum = mFI_GetBlockNum(blockX, blockZ);
+        /* View the entire byte grid, rather than advancing beyond one row. */
+        keepHeight = (u8*)&g_fdinfo->blockInfo[blockNum].bgInfo.unk_420;
+        keepHeight += blockUtZ * UT_X_NUM + blockUtX;
+        return keepHeight[0];
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_800899CC_jp.s")
 
