@@ -871,9 +871,38 @@ s32 func_8008BE00_jp(FieldMakeMoveActor* moveActorList, s32 listSize) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008BE38_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008BF34_jp.s")
+extern FieldMakeMoveActor B_8013A2D0_jp[16];
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008BFC4_jp.s")
+FieldMakeMoveActor* func_8008BF34_jp(s32 bx, s32 bz) {
+    FieldMakeMoveActor* moveActorList = NULL;
+    s32 num = mFI_GetBlockNum(bx, bz);
+
+    if (mFI_BlockCheck(bx, bz)) {
+        moveActorList = B_8013A2D0_jp;
+        bcopy(g_fdinfo->blockInfo[num].fgInfo.moveActors, moveActorList, sizeof(B_8013A2D0_jp));
+    }
+
+    return moveActorList;
+}
+
+void func_8008BFC4_jp(void) {
+    extern FieldMakeMoveActor* func_8008BF34_jp(s32 bx, s32 bz);
+    s32 bxMax = mFI_GetBlockXMax();
+    s32 bzMax = mFI_GetBlockZMax();
+    s32 bz;
+
+    for (bz = 0; bz < bzMax; bz++) {
+        s32 bx;
+
+        for (bx = 0; bx < bxMax; bx++) {
+            FieldMakeMoveActor* moveActorList = func_8008BF34_jp(bx, bz);
+
+            if (moveActorList != NULL) {
+                func_8008BB64_jp(bx, bz, moveActorList);
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/mFI_SetPlayerWade.s")
 
