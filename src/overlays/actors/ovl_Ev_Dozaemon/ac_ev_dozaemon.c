@@ -27,7 +27,9 @@ ActorProfile Ev_Dozaemon_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Dozaemon/ac_ev_dozaemon/aEDZ_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Dozaemon/ac_ev_dozaemon/aEDZ_actor_save.s")
+void aEDZ_actor_save(Actor* thisx, Game_Play* game_play UNUSED) {
+    mNpc_RenewalSetNpc(thisx);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Dozaemon/ac_ev_dozaemon/aEDZ_actor_dt.s")
 

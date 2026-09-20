@@ -27,7 +27,9 @@ ActorProfile Npc_Totakeke_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Totakeke/ac_npc_totakeke/aNTT_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Totakeke/ac_npc_totakeke/aNTT_actor_save.s")
+void aNTT_actor_save(Actor* thisx, Game_Play* game_play UNUSED) {
+    mNpc_RenewalSetNpc(thisx);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Totakeke/ac_npc_totakeke/aNTT_actor_dt.s")
 

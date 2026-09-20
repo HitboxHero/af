@@ -27,7 +27,9 @@ ActorProfile Npc_Shop_Mastersp_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Shop_Mastersp/ac_npc_shop_mastersp/aSHM_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Shop_Mastersp/ac_npc_shop_mastersp/aSHM_actor_save.s")
+void aSHM_actor_save(Actor* thisx, Game_Play* game_play UNUSED) {
+    mNpc_RenewalSetNpc(thisx);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Shop_Mastersp/ac_npc_shop_mastersp/aSHM_actor_dt.s")
 

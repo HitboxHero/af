@@ -27,7 +27,9 @@ ActorProfile Npc_Station_Master_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Station_Master/ac_npc_station_master/aSTM_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Station_Master/ac_npc_station_master/aSTM_actor_save.s")
+void aSTM_actor_save(Actor* thisx, Game_Play* game_play UNUSED) {
+    mNpc_RenewalSetNpc(thisx);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Station_Master/ac_npc_station_master/aSTM_actor_dt.s")
 

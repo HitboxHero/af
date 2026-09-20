@@ -27,7 +27,9 @@ ActorProfile Ev_Dokutu_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Dokutu/ac_ev_dokutu/aEVD_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Dokutu/ac_ev_dokutu/aEVD_actor_save.s")
+void aEVD_actor_save(Actor* thisx, Game_Play* game_play UNUSED) {
+    mNpc_RenewalSetNpc(thisx);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Dokutu/ac_ev_dokutu/aEVD_actor_dt.s")
 

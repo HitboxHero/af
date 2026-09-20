@@ -27,7 +27,9 @@ ActorProfile Npc_Majin5_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Majin5/ac_npc_majin5/aNMJ5_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Majin5/ac_npc_majin5/aNMJ5_actor_save.s")
+void aNMJ5_actor_save(Actor* thisx, Game_Play* game_play UNUSED) {
+    mNpc_RenewalSetNpc(thisx);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Majin5/ac_npc_majin5/aNMJ5_actor_dt.s")
 
