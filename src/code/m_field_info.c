@@ -661,7 +661,9 @@ mCoBG_unkStructUnion* mFI_GetUnitCol(xyz_t wpos) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C3B0_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/mFI_GetLineDeposit.s")
+s32 mFI_GetLineDeposit(u16* deposit, s32 utX) {
+    return (deposit[0] >> utX) & 1;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008C3E8_jp.s")
 
