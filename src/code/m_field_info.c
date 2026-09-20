@@ -3,6 +3,8 @@
 #include "m_random_field.h"
 #include "m_collision_bg.h"
 #include "libc64/qrand.h"
+#include "m_common_data.h"
+#include "m_name_table.h"
 
 s32 mFI_BlockCheck(s32 blockX, s32 blockZ);
 
@@ -657,7 +659,21 @@ u16* mFI_BkNumtoUtFGTop(s32 blockX, s32 blockZ) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008BDCC_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008BE00_jp.s")
+s32 func_8008BE00_jp(FieldMakeMoveActor* moveActorList, s32 listSize) {
+    s32 index = -1;
+    s32 i;
+
+    for (i = 0; i < listSize; i++) {
+        if (moveActorList->nameId == EMPTY_NO) {
+            index = i;
+            break;
+        }
+
+        moveActorList++;
+    }
+
+    return index;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008BE38_jp.s")
 
@@ -757,7 +773,15 @@ s32 mFI_GetLineDeposit(u16* deposit, s32 utX) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008D574_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/mFI_GetOtherFruit.s")
+u16 mFI_GetOtherFruit(void) {
+    u16 otherFruit = ITM_FOOD_START | (u32)(fqrand() * 4.0f);
+
+    if (otherFruit == common_data.save.fruit) {
+        otherFruit++;
+    }
+
+    return otherFruit;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008D7B0_jp.s")
 

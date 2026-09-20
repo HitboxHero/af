@@ -36,7 +36,17 @@ void aRP_actor_ct(Actor* thisx, Game_Play* game_play UNUSED) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Rope/ac_rope/aRP_actor_dt.s")
+void aRP_actor_dt(Actor* thisx, Game_Play* game_play UNUSED) {
+    xyz_t world;
+    s32 i;
+
+    mFI_Wpos2UtCenterWpos(&world, thisx->world.pos);
+    world.x -= 40.0f;
+    for (i = 0; i < 3; i++) {
+        mCoBG_SetPlussOffset(world, 0, 100);
+        world.x += 40.0f;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Rope/ac_rope/func_8096D920_jp.s")
 
