@@ -30,9 +30,11 @@ ActorProfile Broker_Design_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Broker_Design/ac_broker_design/Broker_Design_Actor_dt.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Broker_Design/ac_broker_design/Broker_Design_Actor_draw.s")
+void Broker_Design_Actor_draw(Actor* thisx UNUSED, Game_Play* game_play UNUSED) {
+}
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Broker_Design/ac_broker_design/Broker_Design_Actor_move.s")
+void Broker_Design_Actor_move(Actor* thisx UNUSED, Game_Play* game_play UNUSED) {
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Broker_Design/ac_broker_design/func_8095182C_jp.s")
 

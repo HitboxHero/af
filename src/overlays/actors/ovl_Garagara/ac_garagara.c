@@ -62,7 +62,8 @@ ActorProfile Garagara_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Garagara/ac_garagara/Garagara_Actor_dt.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Garagara/ac_garagara/Garagara_Actor_draw_dummy.s")
+void Garagara_Actor_draw_dummy(Actor* thisx UNUSED, Game_Play* game_play UNUSED) {
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Garagara/ac_garagara/func_80A8612C_jp.s")
 
@@ -74,6 +75,7 @@ ActorProfile Garagara_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Garagara/ac_garagara/func_80A8632C_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Garagara/ac_garagara/Garagara_Actor_move_dummy.s")
+void Garagara_Actor_move_dummy(Actor* thisx UNUSED, Game_Play* game_play UNUSED) {
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Garagara/ac_garagara/func_80A863CC_jp.s")
