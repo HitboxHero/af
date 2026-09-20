@@ -27,7 +27,9 @@ ActorProfile Tokyoso_Npc1_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Tokyoso_Npc1/ac_tokyoso_npc1/aTKN1_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Tokyoso_Npc1/ac_tokyoso_npc1/aTKN1_actor_save.s")
+void aTKN1_actor_save(Actor* thisx, Game_Play* game_play UNUSED) {
+    mNpc_RenewalSetNpc(thisx);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Tokyoso_Npc1/ac_tokyoso_npc1/aTKN1_actor_dt.s")
 

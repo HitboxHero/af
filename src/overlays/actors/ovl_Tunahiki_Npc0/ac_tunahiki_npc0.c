@@ -27,7 +27,9 @@ ActorProfile Tunahiki_Npc0_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Tunahiki_Npc0/ac_tunahiki_npc0/aTNN0_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Tunahiki_Npc0/ac_tunahiki_npc0/aTNN0_actor_save.s")
+void aTNN0_actor_save(Actor* thisx, Game_Play* game_play UNUSED) {
+    mNpc_RenewalSetNpc(thisx);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Tunahiki_Npc0/ac_tunahiki_npc0/aTNN0_actor_dt.s")
 

@@ -27,7 +27,9 @@ ActorProfile Tamaire_Npc0_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Tamaire_Npc0/ac_tamaire_npc0/aTMN0_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Tamaire_Npc0/ac_tamaire_npc0/aTMN0_actor_save.s")
+void aTMN0_actor_save(Actor* thisx, Game_Play* game_play UNUSED) {
+    mNpc_RenewalSetNpc(thisx);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Tamaire_Npc0/ac_tamaire_npc0/aTMN0_actor_dt.s")
 
