@@ -27,11 +27,17 @@ ActorProfile Npc_Depart_Master_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Depart_Master/ac_npc_depart_master/aNDM_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Depart_Master/ac_npc_depart_master/aNDM_actor_save.s")
+void aNDM_actor_save(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_C8(thisx, game_play);
+}
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Depart_Master/ac_npc_depart_master/aNDM_actor_dt.s")
+void aNDM_actor_dt(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_C4(thisx, game_play);
+}
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Depart_Master/ac_npc_depart_master/aNDM_actor_init.s")
+void aNDM_actor_init(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_CC(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Depart_Master/ac_npc_depart_master/func_809AA65C_jp.s")
 
