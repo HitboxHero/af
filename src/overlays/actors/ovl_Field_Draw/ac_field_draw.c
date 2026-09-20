@@ -28,7 +28,8 @@ ActorProfile Field_Draw_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Field_Draw/ac_field_draw/Bg_Draw_Actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Field_Draw/ac_field_draw/Bg_Draw_Actor_dt.s")
+void Bg_Draw_Actor_dt(Actor* thisx UNUSED, Game_Play* game_play UNUSED) {
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Field_Draw/ac_field_draw/Bg_Draw_Actor_move.s")
 
