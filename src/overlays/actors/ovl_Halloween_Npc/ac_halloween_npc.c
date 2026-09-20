@@ -27,9 +27,13 @@ ActorProfile Halloween_Npc_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Halloween_Npc/ac_halloween_npc/aHWN_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Halloween_Npc/ac_halloween_npc/aHWN_actor_dt.s")
+void aHWN_actor_dt(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_C4(thisx, game_play);
+}
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Halloween_Npc/ac_halloween_npc/aHWN_actor_save.s")
+void aHWN_actor_save(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_C8(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Halloween_Npc/ac_halloween_npc/aHWN_actor_init.s")
 
