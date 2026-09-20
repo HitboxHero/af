@@ -527,7 +527,17 @@ mCoBG_unkStructUnion* mFI_GetUnitCol(xyz_t wpos) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_800899CC_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/mFI_GetSoundSourcePBlockNum.s")
+FieldMakeBGSoundSource* mFI_GetSoundSourcePBlockNum(s32 blockX, s32 blockZ) {
+    FieldMakeBGSoundSource* soundSource = NULL;
+
+    if (mFI_BlockCheck(blockX, blockZ)) {
+        s32 blockNum = mFI_GetBlockNum(blockX, blockZ);
+
+        soundSource = g_fdinfo->blockInfo[blockNum].bgInfo.soundSource;
+    }
+
+    return soundSource;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_80089AAC_jp.s")
 
@@ -549,7 +559,17 @@ mCoBG_unkStructUnion* mFI_GetUnitCol(xyz_t wpos) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008A000_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/mFI_BkNumtoUtFGTop.s")
+u16* mFI_BkNumtoUtFGTop(s32 blockX, s32 blockZ) {
+    u16* fgTop = NULL;
+
+    if (mFI_CheckFieldData() && mFI_BlockCheck(blockX, blockZ)) {
+        s32 blockNum = mFI_GetBlockNum(blockX, blockZ);
+
+        fgTop = g_fdinfo->blockInfo[blockNum].fgInfo.itemsPtr;
+    }
+
+    return fgTop;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/code/m_field_info/func_8008A3BC_jp.s")
 
