@@ -27,7 +27,9 @@ ActorProfile Npc_Conv_Master_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Conv_Master/ac_npc_conv_master/aNCM_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Conv_Master/ac_npc_conv_master/aNCM_actor_save.s")
+void aNCM_actor_save(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_C8(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Conv_Master/ac_npc_conv_master/aNCM_actor_dt.s")
 

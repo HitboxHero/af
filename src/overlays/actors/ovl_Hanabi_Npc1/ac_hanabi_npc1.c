@@ -27,11 +27,17 @@ ActorProfile Hanabi_Npc1_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Hanabi_Npc1/ac_hanabi_npc1/aHN1_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Hanabi_Npc1/ac_hanabi_npc1/aHN1_actor_save.s")
+void aHN1_actor_save(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_C8(thisx, game_play);
+}
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Hanabi_Npc1/ac_hanabi_npc1/aHN1_actor_dt.s")
+void aHN1_actor_dt(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_C4(thisx, game_play);
+}
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Hanabi_Npc1/ac_hanabi_npc1/aHN1_actor_init.s")
+void aHN1_actor_init(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_CC(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Hanabi_Npc1/ac_hanabi_npc1/func_809DD954_jp.s")
 

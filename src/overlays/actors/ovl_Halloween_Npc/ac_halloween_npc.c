@@ -35,7 +35,9 @@ void aHWN_actor_save(Actor* thisx, Game_Play* game_play) {
     common_data.clip.unk_040->unk_C8(thisx, game_play);
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Halloween_Npc/ac_halloween_npc/aHWN_actor_init.s")
+void aHWN_actor_init(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_CC(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Halloween_Npc/ac_halloween_npc/func_809A4884_jp.s")
 
