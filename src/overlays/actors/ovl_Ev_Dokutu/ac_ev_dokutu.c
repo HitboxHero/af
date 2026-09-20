@@ -31,9 +31,13 @@ void aEVD_actor_save(Actor* thisx, Game_Play* game_play UNUSED) {
     mNpc_RenewalSetNpc(thisx);
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Dokutu/ac_ev_dokutu/aEVD_actor_dt.s")
+void aEVD_actor_dt(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_C4(thisx, game_play);
+}
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Dokutu/ac_ev_dokutu/aEVD_actor_init.s")
+void aEVD_actor_init(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_CC(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ev_Dokutu/ac_ev_dokutu/func_80AAEAC8_jp.s")
 
