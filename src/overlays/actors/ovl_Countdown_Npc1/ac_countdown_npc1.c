@@ -35,7 +35,9 @@ void aCD1_actor_dt(Actor* thisx, Game_Play* game_play) {
     common_data.clip.unk_040->unk_C4(thisx, game_play);
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Countdown_Npc1/ac_countdown_npc1/aCD1_actor_init.s")
+void aCD1_actor_init(Actor* thisx, Game_Play* game_play) {
+    common_data.clip.unk_040->unk_CC(thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Countdown_Npc1/ac_countdown_npc1/func_809E1874_jp.s")
 
