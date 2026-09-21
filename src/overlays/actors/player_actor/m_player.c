@@ -11,6 +11,7 @@
 #include "m_debug.h"
 #include "m_demo.h"
 #include "m_bgm.h"
+#include "sys_math_atan.h"
 
 extern ClObjPipe_Init Player_actor_OcInfoData_forStand;
 #if 0
@@ -310,11 +311,38 @@ f32 Player_actor_GetController_old_recognize_percentR() {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B3BF0_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B3C10_jp.s")
+s32 func_808B3C10_jp(Actor* actor, f32 brakeAmount) {
+    extern void func_808B3BF0_jp(Actor* actor);
+    f32 speed = actor->speed;
+
+    speed -= brakeAmount;
+    if (speed < 0.0f) {
+        speed = 0.0f;
+    }
+
+    actor->speed = speed;
+    func_808B3BF0_jp(actor);
+    return speed == 0.0f;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B3C74_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B3C94_jp.s")
+void func_808B3C94_jp(Actor* actor) {
+    Player* player = (Player*)actor;
+    Actor* ukiActor = player->fishingRodActor;
+    xyz_t* ukiPos = &ukiActor->world.pos;
+    xyz_t* playerPos = &actor->world.pos;
+    f32 dx = ukiPos->x - playerPos->x;
+    f32 dz = ukiPos->z - playerPos->z;
+
+    if (dx != 0.0f || dz != 0.0f) {
+        s16 targetAngleY = atans_table(dz, dx);
+
+        /* N64 turn interpolation and angle-step limits. */
+        add_calc_short_angle2(&actor->shape.rot.y, targetAngleY, 0.5f, 5000, 100);
+        actor->world.rot.y = actor->shape.rot.y;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B3D28_jp.s")
 
@@ -366,7 +394,34 @@ f32 Player_actor_GetController_old_recognize_percentR() {
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/Player_actor_SetPosition_OBJtoLine_forItem.s")
 // clang-format on
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B5150_jp.s")
+f32 func_808B5150_jp(Actor* actor, const xyz_t* pos) {
+    extern f32 func_800DAE5C_jp(const xyz_t* vec);
+    f32 overSpeedNormalize;
+    xyz_t groundNorm;
+
+    mCoBG_GetBgNorm_FromWpos(&groundNorm, *pos);
+    overSpeedNormalize = 1.0f;
+
+    if (groundNorm.x != 0.0f || groundNorm.z != 0.0f) {
+        xyz_t moveVec;
+        s16 angleY = actor->world.rot.y;
+
+        moveVec.x = sin_s(angleY);
+        moveVec.z = cos_s(angleY);
+        if (groundNorm.y != 0.0f) {
+            moveVec.y = (groundNorm.x * moveVec.x + groundNorm.z * moveVec.z) / -groundNorm.y;
+            if (moveVec.y > 0.0f) {
+                overSpeedNormalize = func_800DAE5C_jp(&moveVec);
+            }
+        }
+    }
+
+    if (overSpeedNormalize == 0.0f) {
+        overSpeedNormalize = 1.0f;
+    }
+
+    return overSpeedNormalize;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/Player_actor_set_eye_PositionAndAngle.s")
 
