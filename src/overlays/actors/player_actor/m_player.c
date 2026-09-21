@@ -12,6 +12,7 @@
 #include "m_demo.h"
 #include "m_bgm.h"
 #include "sys_math_atan.h"
+#include "macros.h"
 
 extern ClObjPipe_Init Player_actor_OcInfoData_forStand;
 #if 0
@@ -747,11 +748,78 @@ void func_808BB904_jp(Actor* actor, xyz_t* pos, f32 dist) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BB98C_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BBA0C_jp.s")
+s32 func_808BBA0C_jp(const xyz_t* pos, f32 maxDistSq, f32 maxDistY, xyz_t* targetPos, xyz_t* itemPos) {
+    extern void func_808BB98C_jp(xyz_t* itemPos, const xyz_t* centerPos);
+    extern f32 func_800DADE8_jp(f32 x1, f32 z1, f32 x2, f32 z2);
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BBB7C_jp.s")
+    mFI_Wpos2UtCenterWpos(targetPos, *pos);
+    if (common_data.unk_10001 != 0) {
+        targetPos->y = mCoBG_GetBgY_OnlyCenter_FromWpos2(*targetPos, 0.0f);
+    } else {
+        targetPos->y = mCoBG_GetBgY_OnlyCenter_FromWpos2(*targetPos, -1.0f);
+    }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BBCA8_jp.s")
+    func_808BB98C_jp(itemPos, targetPos);
+    targetPos->y = mCoBG_GetBgY_OnlyCenter_FromWpos2(*targetPos, 0.0f);
+    if (func_800DADE8_jp(itemPos->x, itemPos->z, pos->x, pos->z) <= maxDistSq) {
+        f32 dy = targetPos->y - pos->y;
+
+        if (ABS(dy) <= maxDistY) {
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
+u16* func_808BBB7C_jp(const xyz_t* pos, f32 maxDistSq, f32 maxDistY, xyz_t* targetPos, xyz_t* itemPos) {
+    extern s32 func_8008C708_jp(xyz_t wpos);
+
+    if (func_8008C708_jp(*pos) == FALSE) {
+        u16* fg = mFI_GetUnitFG(*pos);
+
+        if (fg != NULL) {
+            if ((*fg >= 8 && *fg <= 10) != FALSE) {
+                if (func_808BBA0C_jp(pos, maxDistSq, maxDistY, targetPos, itemPos)) {
+                    return fg;
+                }
+            } else {
+                s32 fieldType = common_data.unk_10001;
+
+                switch (GET_NAME_ITEM_TYPE(*fg)) {
+                    case 1:
+                        if (fieldType != 0) {
+                            break;
+                        }
+                        /* Fallthrough */
+                    case 2:
+                        if (func_808BBA0C_jp(pos, maxDistSq, maxDistY, targetPos, itemPos)) {
+                            return fg;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    return NULL;
+}
+
+u16* func_808BBCA8_jp(Actor* actor, xyz_t* targetPos, xyz_t* itemPos) {
+    u16* fg;
+    xyz_t pos;
+
+    func_808BB904_jp(actor, &pos, 20.0f);
+    fg = func_808BBB7C_jp(&pos, SQ(15.0f), 15.0f, targetPos, itemPos);
+    if (fg == NULL) {
+        func_808BB904_jp(actor, &pos, 10.0f);
+        fg = func_808BBB7C_jp(&pos, SQ(15.0f), 15.0f, targetPos, itemPos);
+    }
+
+    return fg;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BBD34_jp.s")
 
