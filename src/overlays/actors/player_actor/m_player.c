@@ -459,7 +459,15 @@ f32 func_808B5150_jp(Actor* actor, const xyz_t* pos) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B53F8_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B5470_jp.s")
+s32 func_808B5470_jp(void) {
+    s32 order = mDemo_Get_OrderValue(0, 0);
+
+    if (order > 0) {
+        mDemo_Set_OrderValue(0, 0, 0);
+    }
+
+    return order;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B54B8_jp.s")
 
@@ -467,9 +475,24 @@ f32 func_808B5150_jp(Actor* actor, const xyz_t* pos) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B5544_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B5584_jp.s")
+void func_808B5584_jp(s32 slot, u16 item, xyz_t* pos) {
+    extern void func_808B5544_jp(s32 slot, u16 item);
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B55E8_jp.s")
+    func_808B5544_jp(slot, item);
+    if (pos != NULL) {
+        mFI_SetFG_common(EMPTY_NO, *pos, TRUE);
+    }
+}
+
+void func_808B55E8_jp(s32 slot, u16 item, xyz_t* pos) {
+    extern void func_808B5544_jp(s32 slot, u16 item);
+    extern s32 func_8008AA98_jp(u16 item, xyz_t pos);
+
+    func_808B5544_jp(slot, item);
+    if (pos != NULL) {
+        func_8008AA98_jp(EMPTY_NO, *pos);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B5644_jp.s")
 
@@ -682,7 +705,18 @@ void Player_actor_request_camera2_main_simple_fishing(Actor* actor, Game* game) 
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B996C_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BA0B0_jp.s")
+u16 func_808BA0B0_jp(Actor* actor, s32* utX, s32* utZ, xyz_t* pos) {
+    extern u16 func_808B996C_jp(Actor* actor, xyz_t* pos);
+    u16 item = func_808B996C_jp(actor, pos);
+
+    if (item != EMPTY_NO && mFI_Wpos2UtNum(utX, utZ, *pos)) {
+        return item;
+    }
+
+    *utX = -1;
+    *utZ = -1;
+    return EMPTY_NO;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BA13C_jp.s")
 
@@ -833,7 +867,24 @@ s32 func_808BBD34_jp(Actor* actor, u16* item, xyz_t* targetPos, xyz_t* itemPos) 
     }
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BBD80_jp.s")
+u16 func_808BBD80_jp(Actor* actor) {
+    Player* player = (Player*)actor;
+    s32 mainIndex = player->nowMainIndex;
+
+    if (mainIndex == 7) {
+        u16 item = EMPTY_NO;
+        xyz_t itemPos;
+        xyz_t targetPos;
+
+        if (func_808BBD34_jp(actor, &item, &targetPos, &itemPos)) {
+            if ((item >= 8 && item <= 10) == FALSE) {
+                return item;
+            }
+        }
+    }
+
+    return EMPTY_NO;
+}
 
 s32 func_808BBDE8_jp(Actor* actor) {
     extern s32 func_800B553C_jp(void);
