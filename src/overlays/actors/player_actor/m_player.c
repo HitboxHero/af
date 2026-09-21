@@ -821,7 +821,17 @@ u16* func_808BBCA8_jp(Actor* actor, xyz_t* targetPos, xyz_t* itemPos) {
     return fg;
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BBD34_jp.s")
+s32 func_808BBD34_jp(Actor* actor, u16* item, xyz_t* targetPos, xyz_t* itemPos) {
+    u16* fg = func_808BBCA8_jp(actor, targetPos, itemPos);
+
+    if (fg != NULL) {
+        *item = *fg;
+        return TRUE;
+    } else {
+        *item = EMPTY_NO;
+        return FALSE;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BBD80_jp.s")
 
