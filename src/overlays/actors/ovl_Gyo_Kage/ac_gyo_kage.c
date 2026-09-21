@@ -2,6 +2,7 @@
 #include "m_actor_dlftbls.h"
 #include "m_object.h"
 #include "overlays/gamestates/ovl_play/m_play.h"
+#include "sys_math_atan.h"
 
 void aGYO_KAGE_actor_ct(Actor* thisx, Game_Play* game_play);
 void aGYO_KAGE_actor_dt(Actor* thisx, Game_Play* game_play);
@@ -30,7 +31,14 @@ ActorProfile Gyo_Kage_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Gyo_Kage/ac_gyo_kage/func_80A81A6C_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Gyo_Kage/ac_gyo_kage/func_80A81AD0_jp.s")
+s16 func_80A81AD0_jp(Actor* actor) {
+    xyz_t flow;
+    s16 angle;
+
+    mCoBG_GetWaterFlow(&flow, actor->colCheck.colResult.unk5);
+    angle = atans_table(flow.z, flow.x);
+    return angle;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Gyo_Kage/ac_gyo_kage/func_80A81B0C_jp.s")
 
@@ -42,7 +50,11 @@ ActorProfile Gyo_Kage_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Gyo_Kage/ac_gyo_kage/func_80A81F90_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Gyo_Kage/ac_gyo_kage/func_80A81FCC_jp.s")
+void func_80A81FCC_jp(Actor* actor, Game_Play* play) {
+    if (actor->blockX != play->unk_00E4 || actor->blockZ != play->unk_00E5) {
+        Actor_delete(actor);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Gyo_Kage/ac_gyo_kage/func_80A8200C_jp.s")
 
