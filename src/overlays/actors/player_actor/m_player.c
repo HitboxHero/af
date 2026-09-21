@@ -344,7 +344,16 @@ void func_808B3C94_jp(Actor* actor) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B3D28_jp.s")
+void func_808B3D28_jp(Actor* actor, s32 usePositionSpeedY) {
+    actor->speed = 0.0f;
+    Actor_position_speed_set(actor);
+
+    if (usePositionSpeedY == FALSE) {
+        actor->velocity.y = 0.0f;
+    }
+
+    Actor_position_move(actor);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B3D7C_jp.s")
 
@@ -382,7 +391,19 @@ void func_808B3C94_jp(Actor* actor) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B4DAC_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B4DE8_jp.s")
+void func_808B4DE8_jp(Actor* actor, Game* game) {
+    extern void func_808B4DAC_jp(Actor* actor, Game* game);
+    f32 speed = actor->speed;
+    u8* weight = &actor->colStatus.mass;
+
+    if (speed != 0.0f) {
+        *weight = 50;
+    } else {
+        *weight = MASS_HEAVY;
+    }
+
+    func_808B4DAC_jp(actor, game);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B4E34_jp.s")
 
@@ -714,7 +735,15 @@ void Player_actor_request_camera2_main_simple_fishing(Actor* actor, Game* game) 
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BB724_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BB904_jp.s")
+void func_808BB904_jp(Actor* actor, xyz_t* pos, f32 dist) {
+    s16 angleY = actor->shape.rot.y;
+    f32 x = dist * sin_s(angleY);
+    f32 z = dist * cos_s(angleY);
+
+    *pos = actor->world.pos;
+    pos->x += x;
+    pos->z += z;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BB98C_jp.s")
 
