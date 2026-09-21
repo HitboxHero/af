@@ -547,7 +547,18 @@ f32 Player_actor_GetController_old_recognize_percentR() {
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B8EA8_jp.s")
 
 // clang-format off
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/Player_actor_request_camera2_main_simple_fishing.s")
+void Player_actor_request_camera2_main_simple_fishing(Actor* actor, Game* game) {
+    extern s32 func_80060564_jp(Game_Play* play, s32 priority);
+    extern s32 func_800637C8_jp(Game_Play* play, const xyz_t* playerPos, const xyz_t* bobberPos, s32 priority);
+    Player* player = (Player*)actor;
+    Actor* ukiActor = player->fishingRodActor;
+    Game_Play* play = (Game_Play*)game;
+
+    if (ukiActor != NULL) {
+        func_80060564_jp(play, 0);
+        func_800637C8_jp(play, &actor->eye.pos, &ukiActor->world.pos, 5);
+    }
+}
 // clang-format on
 
 // clang-format off
@@ -662,7 +673,21 @@ f32 Player_actor_GetController_old_recognize_percentR() {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BBD80_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BBDE8_jp.s")
+s32 func_808BBDE8_jp(Actor* actor) {
+    extern s32 func_800B553C_jp(void);
+    extern s8 D_808DF3A0_jp[];
+    Player* player = (Player*)actor;
+
+    if (mEv_CheckTitleDemo() <= 0 && func_800B553C_jp()) {
+        s32 mainIndex = player->nowMainIndex;
+
+        if ((mainIndex >= 0 && mainIndex < 105) != FALSE) {
+            return D_808DF3A0_jp[mainIndex];
+        }
+    }
+
+    return FALSE;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/Player_actor_Set_Indoor_Camera_Index.s")
 

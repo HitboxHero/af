@@ -3,6 +3,8 @@
 #include "m_actor_dlftbls.h"
 #include "m_object.h"
 #include "overlays/gamestates/ovl_play/m_play.h"
+#include "m_field_info.h"
+#include "m_name_table.h"
 
 void aPOL_actor_ct(Actor* thisx, Game_Play* game_play);
 void aPOL_actor_dt(Actor* thisx, Game_Play* game_play);
@@ -27,7 +29,15 @@ ActorProfile Npc_Police_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Police/ac_npc_police/aPOL_actor_ct.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Police/ac_npc_police/aPOL_actor_save.s")
+void aPOL_actor_save(Actor* thisx, Game_Play* game_play) {
+    u16* fg;
+
+    common_data.clip.unk_040->unk_C8(thisx, game_play);
+    fg = mFI_GetUnitFG(thisx->home.pos);
+    if (fg != NULL && *fg == 0xFFFF) {
+        *fg = EMPTY_NO;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Npc_Police/ac_npc_police/aPOL_actor_dt.s")
 
