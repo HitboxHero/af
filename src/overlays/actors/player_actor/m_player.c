@@ -390,7 +390,16 @@ void func_808B3D28_jp(Actor* actor, s32 usePositionSpeedY) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B4D5C_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B4DAC_jp.s")
+void func_808B4DAC_jp(Actor* actor, Game* game) {
+    Player* player = (Player*)actor;
+    ClObjPipe* colPipe = &player->colliderPipe;
+    ClObj* colObj = &colPipe->base;
+    Game_Play* play = (Game_Play*)game;
+    CollisionCheck* colCheck = &play->unk_2138;
+
+    CollisionCheck_Uty_ActorWorldPosSetPipeC(actor, colPipe);
+    CollisionCheck_setOC(play, colCheck, colObj);
+}
 
 void func_808B4DE8_jp(Actor* actor, Game* game) {
     extern void func_808B4DAC_jp(Actor* actor, Game* game);
@@ -469,7 +478,13 @@ s32 func_808B5470_jp(void) {
     return order;
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B54B8_jp.s")
+s16 func_808B54B8_jp(Game* game) {
+    extern s16 func_80060548_jp(Game_Play* play);
+    Game_Play* play = (Game_Play*)game;
+    s32 angle = 0xC000 + (s16)Player_actor_GetController_move_angle() + (s16)func_80060548_jp(play);
+
+    return angle;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B54FC_jp.s")
 
@@ -616,7 +631,18 @@ void func_808B55E8_jp(s32 slot, u16 item, xyz_t* pos) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B87FC_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B8874_jp.s")
+s32 func_808B8874_jp(Game* game, s32 requestMainIndex, s32 priority) {
+    extern s32 func_808B8778_jp(s32 requestMainIndex);
+    extern s32 func_808B87FC_jp(s32 requestMainIndex);
+    extern s32 func_808B3308_jp(Game* game, s32 priority);
+
+    if (func_808B8778_jp(requestMainIndex) == FALSE &&
+        func_808B87FC_jp(requestMainIndex) == FALSE && func_808B3308_jp(game, priority) > 0) {
+        return TRUE;
+    }
+
+    return FALSE;
+}
 
 // clang-format off
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/Player_actor_cancel_request_change_proc_index.s")
@@ -681,7 +707,35 @@ void Player_actor_request_camera2_main_simple_fishing(Actor* actor, Game* game) 
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B9248_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B9288_jp.s")
+s32 func_808B9288_jp(f32 curFrame, f32 speed, f32 endFrame, s32 animIdx, const s16* const* dataTable,
+                     const u8* lenTable) {
+    extern s32 func_808B56C4_jp(f32 curFrame, f32 frameSpeed, f32 endFrame, f32 targetFrame);
+
+    if (animIdx >= 0 && animIdx < 130) {
+        const s16* data = dataTable[animIdx];
+
+        if (data != NULL) {
+            const s32 len = lenTable[animIdx];
+            s32 i;
+
+            for (i = 0; i < len; i++) {
+                const f32 frame = *data;
+
+                if (frame < 0.0f) {
+                    return FALSE;
+                }
+
+                if (func_808B56C4_jp(curFrame, speed, endFrame, frame)) {
+                    return TRUE;
+                }
+
+                data++;
+            }
+        }
+    }
+
+    return FALSE;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B937C_jp.s")
 
@@ -734,7 +788,16 @@ u16 func_808BA0B0_jp(Actor* actor, s32* utX, s32* utZ, xyz_t* pos) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BAA18_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BAAE4_jp.s")
+s32 func_808BAAE4_jp(Actor* actor, const xyz_t* pos) {
+    extern s32 func_808BA94C_jp(Actor* actor, const xyz_t* pos);
+    extern s32 func_808BAA18_jp(Actor* actor, const xyz_t* pos);
+
+    if (func_808BA94C_jp(actor, pos) || func_808BAA18_jp(actor, pos)) {
+        return TRUE;
+    }
+
+    return FALSE;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808BAB34_jp.s")
 
