@@ -376,7 +376,19 @@ void func_808B3D28_jp(Actor* actor, s32 usePositionSpeedY) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B488C_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B48F0_jp.s")
+s32 func_808B48F0_jp(Actor* actor, f32* lastCurrentFrame) {
+    extern s32 func_808B482C_jp(Actor* actor);
+    Player* player = (Player*)actor;
+    SkeletonInfoR* skeleton = &player->skeletonInfo0;
+    FrameControl* frameControl = &skeleton->frameControl;
+
+    *lastCurrentFrame = frameControl->currentFrame;
+    if (func_808B482C_jp(actor) == 1) {
+        return TRUE;
+    }
+
+    return FALSE;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B4924_jp.s")
 
@@ -415,7 +427,23 @@ void func_808B4DE8_jp(Actor* actor, Game* game) {
     func_808B4DAC_jp(actor, game);
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B4E34_jp.s")
+void func_808B4E34_jp(Actor* actor, Game* game) {
+    Player* player = (Player*)actor;
+    SkeletonInfoR* skeleton = &player->skeletonInfo0;
+    ClObjPipe* colPipe = &player->colliderPipe;
+    s_xyz* pipeCenter = &colPipe->attribute.dim.pos;
+    ClObj* colObj = &colPipe->base;
+    Game_Play* play = (Game_Play*)game;
+    CollisionCheck* colCheck = &play->unk_2138;
+    xyz_t worldPos;
+
+    cKF_SkeletonInfo_R_AnimationMove_CulcTransToWorld(&worldPos, &actor->world.pos, 0.0f, 1000.0f, 0.0f,
+                                                  actor->shape.rot.y, &actor->scale, skeleton, 1);
+    pipeCenter->x = worldPos.x;
+    pipeCenter->y = actor->world.pos.y;
+    pipeCenter->z = worldPos.z;
+    CollisionCheck_setOC(play, colCheck, colObj);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B4EE4_jp.s")
 
@@ -591,9 +619,40 @@ void func_808B55E8_jp(s32 slot, u16 item, xyz_t* pos) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B7CDC_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B7DD8_jp.s")
+s32 func_808B7DD8_jp(Game* game, s32 priority) {
+    extern s32 func_808DC85C_jp(Game* game, s32 priority);
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B7E6C_jp.s")
+    if (Player_actor_CheckController_forUmbrella(game)) {
+        Player* player = get_player_actor_withoutCheck((Game_Play*)game);
+
+        switch (player->nowMainIndex) {
+            case 8:
+            case 9:
+            case 10: {
+                f32 speed = player->skeletonInfo0.frameControl.speed;
+
+                if (speed >= 1.0f) {
+                    return FALSE;
+                }
+                break;
+            }
+        }
+
+        return func_808DC85C_jp(game, priority);
+    }
+
+    return FALSE;
+}
+
+void func_808B7E6C_jp(Actor* actor, Game* game) {
+    extern s32 func_808B5844_jp(FrameControl* frameControl, f32 frame);
+    Player* player = (Player*)actor;
+
+    if (func_808B5844_jp(&player->skeletonInfo0.frameControl, 12.0f)) {
+        common_data.clip.unk_090->unk_00(0x3E, actor->world.pos, 2, actor->shape.rot.y, (Game_Play*)game,
+                                       0xFFFF, actor->colCheck.colResult.unk5, 1);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B7F10_jp.s")
 
@@ -2400,7 +2459,19 @@ void Player_actor_Item_main_other_func1(Actor* actor, Game* game) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808CA104_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808CA1A8_jp.s")
+void func_808CA1A8_jp(Actor* actor, const xyz_t* axePos) {
+    f32 z;
+    f32 x;
+
+    x = axePos->x - actor->world.pos.x;
+    z = axePos->z - actor->world.pos.z;
+    if (x != 0.0f || z != 0.0f) {
+        s16 target = atans_table(z, x);
+
+        add_calc_short_angle2(&actor->shape.rot.y, target, 0.5f, 5000, 100);
+    }
+    func_808B3C10_jp(actor, 0.75f);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808CA23C_jp.s")
 
