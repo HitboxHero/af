@@ -678,7 +678,24 @@ void func_808B7E6C_jp(Actor* actor, Game* game) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B84DC_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B856C_jp.s")
+void func_808B856C_jp(Actor* actor, s32 animIndex, f32 rodSpeed, f32 morphSpeed, s32* animIndexOut,
+                      s32* partTableIndexOut) {
+    extern s32 func_808BD6E0_jp(s32 itemKind);
+    extern void func_808B83B4_jp(Actor* actor, s32 animIndex, s32 itemAnimIndex, f32 itemSpeed,
+                               f32 morphSpeed, f32 startFrame, s32* animIndexOut, s32* partTableIndexOut);
+    Player* player = (Player*)actor;
+    s32 itemKind = Player_actor_Get_ItemKind(actor, player->unk_0D00);
+
+    if (itemKind != Player_ITEM_KIND_ROD) {
+        s32 itemAnimIndex = func_808BD6E0_jp(itemKind);
+
+        func_808B83B4_jp(actor, animIndex, itemAnimIndex, 1.0f, morphSpeed, -1.0f,
+                         animIndexOut, partTableIndexOut);
+    } else {
+        func_808B83B4_jp(actor, animIndex, 11, rodSpeed, morphSpeed, -1.0f,
+                         animIndexOut, partTableIndexOut);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B8628_jp.s")
 
@@ -725,7 +742,28 @@ s32 func_808B8874_jp(Game* game, s32 requestMainIndex, s32 priority) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B8C5C_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B8CF4_jp.s")
+s32 func_808B8CF4_jp(Actor* actor, const xyz_t* checkPos) {
+    extern s32 func_808B8C5C_jp(Actor* actor, xyz_t* axePos);
+    xyz_t targetPos;
+
+    if (func_808B8C5C_jp(actor, &targetPos)) {
+        s32 checkBlockX;
+        s32 checkBlockZ;
+        s32 targetBlockX;
+        s32 targetBlockZ;
+
+        if (mFI_Wpos2BlockNum(&checkBlockX, &checkBlockZ, *checkPos) == FALSE) {
+            return FALSE;
+        }
+        if (mFI_Wpos2BlockNum(&targetBlockX, &targetBlockZ, targetPos) == FALSE) {
+            return FALSE;
+        }
+        if (checkBlockX == targetBlockX && checkBlockZ == targetBlockZ) {
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B8DB8_jp.s")
 
