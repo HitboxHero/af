@@ -24,15 +24,34 @@ ActorProfile T_Utiwa_Profile = {
 };
 #endif
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Utiwa/ac_t_utiwa/aTUT_actor_ct.s")
+void aTUT_actor_ct(Actor* thisx, UNUSED Game_Play* game_play) {
+    extern void func_80A1FB8C_jp(Actor* thisx, s32 action);
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Utiwa/ac_t_utiwa/func_80A1FAC4_jp.s")
+    func_80A1FB8C_jp(thisx, 0);
+}
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Utiwa/ac_t_utiwa/func_80A1FB2C_jp.s")
+void func_80A1FAC4_jp(Actor* thisx, s32 index) {
+    extern f32 D_80A1FD24_jp[];
+    xyz_t* scale = &thisx->scale;
+    f32 value = scale->x;
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Utiwa/ac_t_utiwa/func_80A1FB4C_jp.s")
+    chase_f(&value, D_80A1FD24_jp[index], 0.1f);
+    scale->x = value;
+    scale->y = value;
+    scale->z = value;
+}
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Utiwa/ac_t_utiwa/func_80A1FB6C_jp.s")
+void func_80A1FB2C_jp(Actor* thisx) {
+    func_80A1FAC4_jp(thisx, 0);
+}
+
+void func_80A1FB4C_jp(Actor* thisx) {
+    func_80A1FAC4_jp(thisx, 1);
+}
+
+void func_80A1FB6C_jp(Actor* thisx) {
+    Actor_delete(thisx);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Utiwa/ac_t_utiwa/func_80A1FB8C_jp.s")
 
