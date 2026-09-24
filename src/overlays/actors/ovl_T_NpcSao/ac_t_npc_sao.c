@@ -24,9 +24,15 @@ ActorProfile T_NpcSao_Profile = {
 };
 #endif
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_NpcSao/ac_t_npc_sao/aTNS_actor_ct.s")
+void aTNS_actor_ct(Actor* thisx, UNUSED Game_Play* game_play) {
+    extern void func_80A20FE4_jp(Actor* thisx, u8 action);
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_NpcSao/ac_t_npc_sao/func_80A20FC4_jp.s")
+    func_80A20FE4_jp(thisx, 0);
+}
+
+void func_80A20FC4_jp(Actor* thisx) {
+    Actor_delete(thisx);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_NpcSao/ac_t_npc_sao/func_80A20FE4_jp.s")
 
