@@ -804,11 +804,39 @@ s32 func_808B9288_jp(f32 curFrame, f32 speed, f32 endFrame, s32 animIdx, const s
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B9568_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B9594_jp.s")
+void func_808B9594_jp(Actor* actor, Game* game, s32 disableEffect, s32 disableSound) {
+    extern s32 func_808B93F4_jp(Actor* actor, Game* game, s32 disableEffect);
+    extern s32 func_808B9568_jp(Actor* actor);
+    extern void Player_actor_sound_FootStep2(Actor* actor);
+    s32 footprintResult = func_808B93F4_jp(actor, game, disableEffect);
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B95EC_jp.s")
+    if (disableSound == FALSE && func_808B9568_jp(actor) && footprintResult) {
+        Player_actor_sound_FootStep2(actor);
+    }
+}
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B9634_jp.s")
+void func_808B95EC_jp(Actor* actor, Game* game, s32 disableEffect, u16 type) {
+    extern s32 func_808B93F4_jp(Actor* actor, Game* game, s32 disableEffect);
+    extern s32 func_808B9568_jp(Actor* actor);
+    extern void Player_actor_sound_FootStep1(Actor* actor, u16 id);
+
+    if (func_808B93F4_jp(actor, game, disableEffect) && func_808B9568_jp(actor)) {
+        Player_actor_sound_FootStep1(actor, type);
+    }
+}
+
+s32 func_808B9634_jp(Game* game) {
+    if (mPlib_get_player_actor_main_index((Game_Play*)game) == 0x54) {
+        Player* player = get_player_actor_withoutCheck((Game_Play*)game);
+
+        f32 currentFrame = player->skeletonInfo0.frameControl.currentFrame;
+
+        if (currentFrame >= 9.0f) {
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808B9698_jp.s")
 
@@ -2540,7 +2568,17 @@ void func_808CA6B0_jp(Actor* actor, Game* game, f32 frame) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808CAB2C_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808CAB4C_jp.s")
+void func_808CAB4C_jp(Actor* actor, Game* game, f32 frame) {
+    extern s32 func_808B5698_jp(Actor* actor, f32 frame);
+    extern void func_808CAB0C_jp(Actor* actor, Game* game);
+    extern void func_808CAB2C_jp(Actor* actor);
+
+    if (!func_808B5698_jp(actor, frame)) {
+        func_808CAB0C_jp(actor, game);
+        func_808CAB2C_jp(actor);
+        func_808B9594_jp(actor, game, 0, 0);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808CABA8_jp.s")
 
@@ -2566,7 +2604,21 @@ void func_808CA6B0_jp(Actor* actor, Game* game, f32 frame) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808CB088_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808CB104_jp.s")
+void func_808CB104_jp(Actor* actor, Game* game, f32 frame) {
+    extern s32 func_808B5698_jp(Actor* actor, f32 frame);
+    extern void func_808CAF50_jp(Actor* actor, Game* game);
+    extern void func_808CAF8C_jp(Actor* actor);
+    extern void func_808CAFDC_jp(Actor* actor);
+    extern void func_808CB088_jp(Actor* actor, Game* game);
+
+    if (!func_808B5698_jp(actor, frame)) {
+        func_808CAF50_jp(actor, game);
+        func_808CAF8C_jp(actor);
+        func_808CAFDC_jp(actor);
+        func_808CB088_jp(actor, game);
+        func_808B9594_jp(actor, game, 0, 0);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/player_actor/m_player/func_808CB17C_jp.s")
 
