@@ -88,7 +88,10 @@ typedef struct Save {
     /* 0x09EA8 */ u8 unk_09EA8[0x70];
     /* 0x09F18 */ Animal_c animals[ANIMAL_NUM_MAX]; // villagers in town
     /* 0x0EC70 */ AnmPersonalID_c lastRemovedAnimalId;
-    /* 0x0EC7C */ u8 unk_0EC7C[0x128];
+    /* 0x0EC7C */ u8 unk_0EC7C[0x110];
+    /* 0x0ED8C */ u16 kabuDailyPrice[lbRTC_WEEKDAYS_MAX];
+    /* 0x0ED9A */ u16 kabuTradeMarket;
+    /* 0x0ED9C */ lbRTC_time_c kabuUpdateTime;
     /* 0x0EDA4 */ EventSaveInfo eventSaveInfo;
     /* 0x0EE40 */ u8 unk_0EE40[0x118];
     /* 0x0EF58 */ u16 fruit;
