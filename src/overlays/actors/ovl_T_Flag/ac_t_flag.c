@@ -22,7 +22,20 @@ ActorProfile T_Flag_Profile = {
 };
 #endif
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Flag/ac_t_flag/func_80A207B0_jp.s")
+void func_80A207B0_jp(s16* angle, s16 target, s16* velocity, s16 limit) {
+    if (target < *angle) {
+        *velocity -= 0x1E0;
+        if (*velocity < -limit) {
+            *velocity = -limit;
+        }
+    } else {
+        *velocity += 0x1E0;
+        if (*velocity > limit) {
+            *velocity = limit;
+        }
+    }
+    *angle += *velocity;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Flag/ac_t_flag/func_80A2083C_jp.s")
 
