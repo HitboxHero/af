@@ -132,7 +132,7 @@
       - [0x71FA20, asm, code/71FA20]
       - [0x7205C0, asm, code/7205C0]
       - [0x7206E0, asm, code/7206E0]
-      - [0x720B20, asm, code/720B20]
+      - [0x720B20, c, code/720B20]
       - [0x720F70, asm, code/720F70]
       - [0x721EC0, c, code/lbrtc/lbrtc_getTime] #made-up name
       - [0x7220C0, c, code/lbrtc/7220C0]
