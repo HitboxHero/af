@@ -3,6 +3,8 @@
 #include "m_actor_dlftbls.h"
 #include "m_object.h"
 #include "overlays/gamestates/ovl_play/m_play.h"
+#include "m_scene.h"
+#include "m_bgm.h"
 
 void aROD_actor_ct(Actor* thisx, Game_Play* game_play);
 void aROD_actor_dt(Actor* thisx, Game_Play* game_play);
@@ -40,7 +42,13 @@ ActorProfile Ride_Off_Demo_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ride_Off_Demo/ac_ride_off_demo/func_80953A44_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ride_Off_Demo/ac_ride_off_demo/func_80953AE8_jp.s")
+void func_80953AE8_jp(Actor* thisx, Game_Play* game_play) {
+    ActorEntry* entry = game_play->unk_1EA8;
+
+    mBGMPsComp_make_ps_happening(0x2F, 0x168);
+    entry->pos.x = 1970;
+    entry->pos.z = 760;
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ride_Off_Demo/ac_ride_off_demo/func_80953B30_jp.s")
 
@@ -48,7 +56,11 @@ ActorProfile Ride_Off_Demo_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ride_Off_Demo/ac_ride_off_demo/func_80953C24_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ride_Off_Demo/ac_ride_off_demo/func_80953C60_jp.s")
+extern ActorFunc D_80953D20_jp[];
+
+void func_80953C60_jp(Actor* thisx, Game_Play* game_play, s32 action) {
+    D_80953D20_jp[action](thisx, game_play);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Ride_Off_Demo/ac_ride_off_demo/func_80953C90_jp.s")
 
