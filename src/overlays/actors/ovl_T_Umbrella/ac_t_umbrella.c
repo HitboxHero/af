@@ -1,4 +1,6 @@
 #include "ac_t_umbrella.h"
+#include "audio.h"
+#include "overlays/actors/ovl_Tools/ac_tools.h"
 #include "m_lib.h"
 #include "m_actor_dlftbls.h"
 #include "m_object.h"
@@ -24,11 +26,28 @@ ActorProfile T_Umbrella_Profile = {
 };
 #endif
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Umbrella/ac_t_umbrella/aTUMB_actor_ct.s")
+void func_80A1EF20_jp(Actor* thisx, s32 action);
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Umbrella/ac_t_umbrella/func_80A1ECD4_jp.s")
+void aTUMB_actor_ct(Actor* thisx, Game_Play* game_play) {
+    ToolActor* this = (ToolActor*)thisx;
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Umbrella/ac_t_umbrella/func_80A1ED04_jp.s")
+    func_80A1EF20_jp(thisx, this->unk1BC);
+}
+
+void func_80A1ECD4_jp(Actor* thisx, u16 id) {
+    sAdo_OngenTrgStart(id, &thisx->world.pos);
+}
+
+void func_80A1ED04_jp(Actor* thisx, s32 action) {
+    switch (action) {
+        case 0:
+            func_80A1ECD4_jp(thisx, 0x139);
+            break;
+        case 1:
+            func_80A1ECD4_jp(thisx, 0x10E);
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Umbrella/ac_t_umbrella/func_80A1ED4C_jp.s")
 
@@ -36,7 +55,9 @@ ActorProfile T_Umbrella_Profile = {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Umbrella/ac_t_umbrella/func_80A1EE84_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Umbrella/ac_t_umbrella/func_80A1EF00_jp.s")
+void func_80A1EF00_jp(Actor* thisx) {
+    Actor_delete(thisx);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Umbrella/ac_t_umbrella/func_80A1EF20_jp.s")
 

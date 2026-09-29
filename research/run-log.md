@@ -37,3 +37,15 @@ ac_npc_sleep_obaba func_809CEFE4_jp: A, 64 bytes; 1 attempt; PASS score 0, linke
 ac_npc_sleep_obaba func_809CF2E4_jp: A, 108 bytes; 1 attempt; PASS score 0, linked bytes/relocations/full text and padding exact.
 
 ac_npc_sleep_obaba verification: existing C TU, 21 functions / 1260 bytes + 4 padding; classification A=10/B=11/C=0, no cross-function local labels. Text 0x8B26B0..0x8B2BA0, data through 0x8B2C20, relocations through 0x8B2CE0. Entire overlay bytes and object text/padding/relocations exact. 10/21 functions (528 bytes + 4 padding) matched in 10 attempts; all category B functions remain in assembly. Full build, make compress and diff --check passed; MD5 d7ae64f2f47a9fa3f87686a3c5ce09af / a4f7c57c180297b2e7ba5a5feb44fe0b.
+ac_t_umbrella func_80A1EE48_jp: B, 60 bytes; 0 attempts; undeclared umbrella scale vectors +0x1D4/+0x1E0; original assembly retained.
+ac_t_umbrella aTUMB_actor_move: B, 80 bytes; 0 attempts; undeclared umbrella action +0x1CC and callback +0x1C8; original assembly retained.
+ac_t_umbrella func_80A1EF20_jp: B, 116 bytes; 0 attempts; undeclared umbrella callback/action/frame/opened fields +0x1C8/+0x1CC/+0x1D0/+0x1EC; original assembly retained.
+ac_t_umbrella func_80A1EE84_jp: B, 124 bytes; 0 attempts; undeclared umbrella action/frame/opened fields +0x1CC/+0x1D0/+0x1EC; original assembly retained.
+ac_t_umbrella func_80A1ED4C_jp: B, 252 bytes; 0 attempts; undeclared umbrella action/frame +0x1CC/+0x1D0 and N64 interpolation-table type; original assembly retained.
+ac_t_umbrella aTUMB_actor_draw: B, 448 bytes; 0 attempts; undeclared umbrella scale vectors +0x1D4/+0x1E0; original assembly retained.
+ac_t_umbrella func_80A1EF00_jp: A, 32 bytes; 1 attempt; PASS score 0, linked bytes/relocations/full text and padding exact.
+ac_t_umbrella aTUMB_actor_ct: A, 36 bytes; 1 attempt; PASS score 0, linked bytes/relocations/full text and padding exact.
+ac_t_umbrella func_80A1ECD4_jp: A, 48 bytes; 1 attempt; PASS score 0, linked bytes/relocations/full text and padding exact.
+ac_t_umbrella func_80A1ED04_jp: A, 72 bytes; 1 attempt; PASS score 0, linked bytes/relocations/full text and padding exact.
+
+ac_t_umbrella verification: existing C TU, 10 functions / 1268 bytes + 12 padding; A=4/B=6/C=0, no cross-function local labels. Text 0x8E6770..0x8E6C70, data through 0x8E6F00, rodata through 0x8E6F10, relocations through 0x8E6FD0. Entire overlay bytes, object text/rodata/padding and text relocations exact. 4/10 functions (188 bytes) matched in 4 attempts; six category B functions remain in assembly. Full build, make compress and diff --check passed; MD5 d7ae64f2f47a9fa3f87686a3c5ce09af / a4f7c57c180297b2e7ba5a5feb44fe0b.

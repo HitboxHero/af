@@ -23,3 +23,9 @@ ac_npc_sleep_obaba func_809CF2A0_jp: B, 68 bytes; 0 attempts; undeclared NPC cal
 ac_npc_sleep_obaba func_809CF0CC_jp: B, 108 bytes; 0 attempts; undeclared NPC bytes +0x7C6/+0x72B and actor state/callback +0x938/+0x93C; original assembly retained.
 ac_npc_sleep_obaba func_809CF1C8_jp: B, 120 bytes; 0 attempts; undeclared NPC action bytes +0x7C5/+0x7C6; original assembly retained.
 ac_npc_sleep_obaba aNSO_actor_ct: B, 160 bytes; 0 attempts; undeclared NPC schedule callback +0x7C0; original assembly retained.
+ac_t_umbrella func_80A1EE48_jp: B, 60 bytes; 0 attempts; undeclared umbrella scale vectors +0x1D4/+0x1E0; original assembly retained.
+ac_t_umbrella aTUMB_actor_move: B, 80 bytes; 0 attempts; undeclared umbrella action +0x1CC and callback +0x1C8; original assembly retained.
+ac_t_umbrella func_80A1EF20_jp: B, 116 bytes; 0 attempts; undeclared umbrella callback/action/frame/opened fields +0x1C8/+0x1CC/+0x1D0/+0x1EC; original assembly retained.
+ac_t_umbrella func_80A1EE84_jp: B, 124 bytes; 0 attempts; undeclared umbrella action/frame/opened fields +0x1CC/+0x1D0/+0x1EC; original assembly retained.
+ac_t_umbrella func_80A1ED4C_jp: B, 252 bytes; 0 attempts; undeclared umbrella action/frame +0x1CC/+0x1D0 and N64 interpolation-table type; original assembly retained.
+ac_t_umbrella aTUMB_actor_draw: B, 448 bytes; 0 attempts; undeclared umbrella scale vectors +0x1D4/+0x1E0; original assembly retained.
