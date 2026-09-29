@@ -49,3 +49,13 @@ ac_t_umbrella func_80A1ECD4_jp: A, 48 bytes; 1 attempt; PASS score 0, linked byt
 ac_t_umbrella func_80A1ED04_jp: A, 72 bytes; 1 attempt; PASS score 0, linked bytes/relocations/full text and padding exact.
 
 ac_t_umbrella verification: existing C TU, 10 functions / 1268 bytes + 12 padding; A=4/B=6/C=0, no cross-function local labels. Text 0x8E6770..0x8E6C70, data through 0x8E6F00, rodata through 0x8E6F10, relocations through 0x8E6FD0. Entire overlay bytes, object text/rodata/padding and text relocations exact. 4/10 functions (188 bytes) matched in 4 attempts; six category B functions remain in assembly. Full build, make compress and diff --check passed; MD5 d7ae64f2f47a9fa3f87686a3c5ce09af / a4f7c57c180297b2e7ba5a5feb44fe0b.
+ac_yatai func_80A76F50_jp: B (unverified local field value), 528 bytes; 0 attempts; xyz_t pos.y at sp+0x7C is passed without initialization; matching C would require forbidden undefined behavior; original assembly retained.
+ac_yatai func_80A77160_jp: A, 16 bytes; 1 attempt(s); PASS score 0, linked bytes/relocations/full text and padding exact.
+ac_yatai func_80A77170_jp: A, 32 bytes; 1 attempt(s); PASS score 0, linked bytes/relocations/full text and padding exact.
+ac_yatai aYAT_actor_ct: A, 68 bytes; 1 attempt(s); PASS score 0, linked bytes/relocations/full text and padding exact.
+ac_yatai aYAT_actor_init: A, 104 bytes; 1 attempt(s); PASS score 0, linked bytes/relocations/full text and padding exact.
+ac_yatai func_80A76EC4_jp: A, 140 bytes; 1 attempt(s); PASS score 0, linked bytes/relocations/full text and padding exact.
+ac_yatai func_80A77190_jp: A, 232 bytes; 2 attempt(s); BLOCKED; reverted after final asm-differ score 52.
+ac_yatai aYAT_actor_draw: A, 328 bytes; 2 attempt(s); PASS score 0, linked bytes/relocations/full text and padding exact.
+
+ac_yatai verification: existing C TU, 8 functions / 1448 bytes + 8 padding; A=7/B=1 (unverified local pos.y initialization, not a shared type gap)/C=0; no cross-function local labels. Text 0x937120..0x9376D0, data through 0x9377F0, rodata through 0x937820, relocations through 0x9378C0. Entire overlay bytes and object text/rodata/padding/relocations exact. 6/8 functions (688 bytes + 8 padding) matched in 9 attempts; movement mismatch and terrain-offset undefined-local-value blocker remain in assembly. Full build, make compress and diff --check passed; MD5 d7ae64f2f47a9fa3f87686a3c5ce09af / a4f7c57c180297b2e7ba5a5feb44fe0b.

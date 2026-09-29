@@ -29,3 +29,5 @@ ac_t_umbrella func_80A1EF20_jp: B, 116 bytes; 0 attempts; undeclared umbrella ca
 ac_t_umbrella func_80A1EE84_jp: B, 124 bytes; 0 attempts; undeclared umbrella action/frame/opened fields +0x1CC/+0x1D0/+0x1EC; original assembly retained.
 ac_t_umbrella func_80A1ED4C_jp: B, 252 bytes; 0 attempts; undeclared umbrella action/frame +0x1CC/+0x1D0 and N64 interpolation-table type; original assembly retained.
 ac_t_umbrella aTUMB_actor_draw: B, 448 bytes; 0 attempts; undeclared umbrella scale vectors +0x1D4/+0x1E0; original assembly retained.
+ac_yatai func_80A76F50_jp: B (unverified local field value), 528 bytes; 0 attempts; xyz_t pos.y at sp+0x7C is passed without initialization; matching C would require forbidden undefined behavior; original assembly retained.
+ac_yatai func_80A77190_jp: reverted after 2 attempts; final asm-differ score 52 (stack/register allocation); original assembly retained.
