@@ -4,6 +4,10 @@
 #include "m_object.h"
 #include "overlays/gamestates/ovl_play/m_play.h"
 #include "libc64/qrand.h"
+#include "objects/tol_umb_25/tol_umb_25.h"
+#include "objects/tol_umb_23/tol_umb_23.h"
+#include "sys_matrix.h"
+#include "m_rcp.h"
 
 void aTNS_actor_ct(Actor* thisx, Game_Play* game_play);
 void aTNS_actor_move(Actor* thisx, Game_Play* game_play);
@@ -65,4 +69,35 @@ void aTNS_actor_move(Actor* thisx, Game_Play* game_play) {
     this->rotationY = rotation;
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_NpcSao/ac_t_npc_sao/aTNS_actor_draw.s")
+void aTNS_actor_draw(Actor* thisx, Game_Play* game_play) {
+    extern xyz_t D_80A212E8_jp;
+    extern const f32 RO_FLT_80A21300_jp[];
+    extern const f32 RO_FLT_80A21304_jp[];
+    T_NpcSao* this = (T_NpcSao*)thisx;
+    GraphicsContext* gfxCtx = game_play->state.gfxCtx;
+    xyz_t* pos = &this->bobberPos;
+
+    if (this->toolActor.unk1B8 == 1) {
+        Matrix_put(&this->toolActor.unk178);
+        Matrix_Position(&D_80A212E8_jp, &thisx->world.pos);
+        this->toolActor.unk1B8 = 0;
+    } else {
+        Matrix_translate(thisx->world.pos.x, thisx->world.pos.y, thisx->world.pos.z, MTXMODE_NEW);
+        Matrix_scale(RO_FLT_80A21300_jp[0], RO_FLT_80A21300_jp[0], RO_FLT_80A21300_jp[0], MTXMODE_APPLY);
+    }
+
+    _texture_z_light_fog_prim_npc(gfxCtx);
+    OPEN_POLY_OPA_DISP(gfxCtx);
+    gSPMatrix(__polyOpa++, _Matrix_to_Mtx_new(gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    // Preserve the original segmented symbols for the rod and bobber display lists.
+    gSPDisplayList(__polyOpa++, e_umb25_model);
+    Matrix_translate(pos->x, pos->y, pos->z, MTXMODE_NEW);
+    Matrix_scale(RO_FLT_80A21304_jp[0], RO_FLT_80A21304_jp[0], RO_FLT_80A21304_jp[0], MTXMODE_APPLY);
+    gSPMatrix(__polyOpa++, _Matrix_to_Mtx_new(gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+    gSPDisplayList(__polyOpa++, tol_umb_23_kasa_tex_txt);
+    CLOSE_POLY_OPA_DISP(gfxCtx);
+}
+
+// Arrays keep these separate named constants in rodata with the original relocations.
+const f32 RO_FLT_80A21300_jp[] = { 0.01f };
+const f32 RO_FLT_80A21304_jp[] = { 0.01f };
