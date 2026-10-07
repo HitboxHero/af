@@ -5,6 +5,9 @@
 #include "m_actor_dlftbls.h"
 #include "m_object.h"
 #include "overlays/gamestates/ovl_play/m_play.h"
+#include "sys_matrix.h"
+#include "m_rcp.h"
+#include "gfx.h"
 
 void aTUMB_actor_ct(Actor* thisx, Game_Play* game_play);
 void aTUMB_actor_move(Actor* thisx, Game_Play* game_play);
@@ -109,4 +112,36 @@ void aTUMB_actor_move(Actor* thisx, Game_Play* game_play) {
     this->actionProc(thisx);
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Umbrella/ac_t_umbrella/aTUMB_actor_draw.s")
+void aTUMB_actor_draw(Actor* thisx, Game_Play* game_play) {
+    extern xyz_t D_80A1F32C_jp;
+    extern T_UmbrellaModel D_80A1F338_jp[];
+    extern const f32 RO_FLT_80A1F440_jp[];
+    T_Umbrella* this = (T_Umbrella*)thisx;
+    GraphicsContext* gfxCtx = game_play->state.gfxCtx;
+    s32 toolName = ((ToolActor*)thisx)->toolName;
+    T_UmbrellaModel* model;
+    Actor* parent = thisx->parent;
+
+    // Keep the native Boolean normalization before testing the draw flag.
+    if (((parent->isDrawn != 0) != 0) && ((ToolActor*)thisx)->unk1B8) {
+        Matrix_put(&((ToolActor*)thisx)->unk178);
+        Matrix_Position(&D_80A1F32C_jp, &thisx->world.pos);
+        ((ToolActor*)thisx)->unk1B8 = 0;
+        _texture_z_light_fog_prim_npc(gfxCtx);
+        OPEN_POLY_OPA_DISP(gfxCtx);
+        Matrix_rotateXYZ(0, -0x4000, 0, MTXMODE_APPLY);
+        Matrix_scale(this->shaftScale.x, this->shaftScale.y, this->shaftScale.z, MTXMODE_APPLY);
+        gSPLoadGeometryMode(__polyOpa++, G_ZBUFFER | G_SHADE | G_FOG | G_LIGHTING | G_SHADING_SMOOTH);
+        gSPMatrix(__polyOpa++, _Matrix_to_Mtx_new(gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+        model = &D_80A1F338_jp[toolName];
+        gSPDisplayList(__polyOpa++, model->shaft);
+        Matrix_translate(RO_FLT_80A1F440_jp[0], 0.0f, 0.0f, MTXMODE_APPLY);
+        Matrix_rotateXYZ(0, 0, 0, MTXMODE_APPLY);
+        Matrix_scale(this->canopyScale.x, this->canopyScale.y, this->canopyScale.z, MTXMODE_APPLY);
+        gSPMatrix(__polyOpa++, _Matrix_to_Mtx_new(gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+        gSPDisplayList(__polyOpa++, model->canopy);
+        CLOSE_POLY_OPA_DISP(gfxCtx);
+    }
+}
+
+const f32 RO_FLT_80A1F440_jp[] = { 4500.0f, 0.0f, 0.0f, 0.0f };
