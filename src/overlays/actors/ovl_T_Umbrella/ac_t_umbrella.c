@@ -82,8 +82,31 @@ void func_80A1EF00_jp(Actor* thisx) {
     Actor_delete(thisx);
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Umbrella/ac_t_umbrella/func_80A1EF20_jp.s")
+void func_80A1EF20_jp(Actor* thisx, s32 action) {
+    extern T_UmbrellaActionFunc D_80A1F318_jp[];
+    extern T_UmbrellaActionFunc D_80A1F324_jp[];
+    f32 frame;
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Umbrella/ac_t_umbrella/aTUMB_actor_move.s")
+    ((T_Umbrella*)thisx)->actionProc = D_80A1F318_jp[action];
+    ((T_Umbrella*)thisx)->action = action;
+    func_80A1ED04_jp(thisx, action);
+    if (D_80A1F324_jp == &D_80A1F318_jp[action]) {
+        frame = 26.0f;
+        ((T_Umbrella*)thisx)->openedFully = 1;
+    } else {
+        frame = 0.0f;
+    }
+    ((T_Umbrella*)thisx)->frame = frame;
+}
+
+void aTUMB_actor_move(Actor* thisx, Game_Play* game_play) {
+    T_Umbrella* this = (T_Umbrella*)thisx;
+
+    if (((ToolActor*)thisx)->unk1BC != this->action) {
+        func_80A1EF20_jp(thisx, ((ToolActor*)thisx)->unk1BC);
+    }
+    func_80A1EE84_jp(this);
+    this->actionProc(thisx);
+}
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Umbrella/ac_t_umbrella/aTUMB_actor_draw.s")
