@@ -12,6 +12,7 @@
 #include "m_actor_dlftbls.h"
 #include "m_object.h"
 #include "overlays/gamestates/ovl_play/m_play.h"
+#include "m_player_lib.h"
 
 void aLOT_actor_ct(Actor* thisx, Game_Play* game_play);
 void aLOT_actor_dt(Actor* thisx, Game_Play* game_play);
@@ -88,9 +89,27 @@ s32 func_80A9EE40_jp(void) {
     return D_80A9F300_jp[common_data.time.termIdx];
 }
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Lotus/ac_lotus/func_80A9EE60_jp.s")
+void func_80A9EE60_jp(Actor* thisx, Game_Play* game_play) {
+    StructureActor* this = (StructureActor*)thisx;
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_Lotus/ac_lotus/func_80A9EF04_jp.s")
+    if (func_800B5B1C_jp() == 0 && (pipeinfo.base.prop.ocFlags1 & 2) &&
+        pipeinfo.base.oc != NULL && pipeinfo.base.oc->name == ACTOR_UKI) {
+        this->skeletonInfo.frameControl.speed = 4.0f;
+        func_80A9EF6C_jp(thisx, 2);
+    } else {
+        add_calc(&this->skeletonInfo.frameControl.speed, 1.0f, 0.1f, 0.03f, 0.0f);
+    }
+}
+
+void func_80A9EF04_jp(Actor* thisx, Game_Play* game_play) {
+    StructureActor* this = (StructureActor*)thisx;
+
+    if (func_800B5B1C_jp() == 0) {
+        add_calc(&this->skeletonInfo.frameControl.speed, 1.0f, 0.1f, 0.03f, 0.0f);
+    } else {
+        func_80A9EF6C_jp(thisx, 1);
+    }
+}
 
 void func_80A9EF6C_jp(Actor* thisx, s32 action) {
     extern ActorFunc D_80A9F348_jp[];

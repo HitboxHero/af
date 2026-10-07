@@ -164,7 +164,7 @@ void func_800B594C_jp(void);
 // void func_800B5980_jp();
 // void func_800B5AA0_jp();
 // void func_800B5AB8_jp();
-// void func_800B5B1C_jp();
+s32 func_800B5B1C_jp(void);
 // void func_800B5B70_jp();
 s32 mPlib_Check_tree_shaken_little(xyz_t*);
 s32 mPlib_Check_tree_shaken_big(xyz_t*);
