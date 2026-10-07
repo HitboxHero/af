@@ -27,6 +27,9 @@ ActorProfile T_Umbrella_Profile = {
 #endif
 
 void func_80A1EF20_jp(Actor* thisx, s32 action);
+void func_80A1ED4C_jp(xyz_t* scale, T_Umbrella* this, s32 index);
+void func_80A1EE48_jp(T_Umbrella* this);
+void func_80A1EE84_jp(T_Umbrella* this);
 
 void aTUMB_actor_ct(Actor* thisx, Game_Play* game_play) {
     ToolActor* this = (ToolActor*)thisx;
@@ -51,9 +54,29 @@ void func_80A1ED04_jp(Actor* thisx, s32 action) {
 
 #pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Umbrella/ac_t_umbrella/func_80A1ED4C_jp.s")
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Umbrella/ac_t_umbrella/func_80A1EE48_jp.s")
+void func_80A1EE48_jp(T_Umbrella* this) {
+    func_80A1ED4C_jp(&this->shaftScale, this, 0);
+    func_80A1ED4C_jp(&this->canopyScale, this, 1);
+}
 
-#pragma GLOBAL_ASM("asm/jp/nonmatchings/overlays/actors/ovl_T_Umbrella/ac_t_umbrella/func_80A1EE84_jp.s")
+void func_80A1EE84_jp(T_Umbrella* this) {
+    extern f32 D_FLT_80A1F308_jp[];
+    f32 maxFrame;
+    f32 frame;
+
+    maxFrame = D_FLT_80A1F308_jp[this->action];
+    frame = this->frame;
+
+    frame += 1.0f;
+    if (frame >= maxFrame) {
+        frame = maxFrame;
+    }
+    if (this->action == 0) {
+        this->openedFully = frame == maxFrame;
+    }
+    this->frame = frame;
+    func_80A1EE48_jp(this);
+}
 
 void func_80A1EF00_jp(Actor* thisx) {
     Actor_delete(thisx);
