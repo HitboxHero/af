@@ -123,10 +123,14 @@ typedef s32 (*Clip_unk_080_unk_28)(struct Game* game, u16 ftr, s32 res,s32 utX, 
 typedef UNK_RET (*Clip_unk_080_unk_34)(struct FurnitureActor* furnitureActor, struct Actor* myHouseActor, struct Game_Play* game_play, f32 arg0, f32 arg1);
 typedef s32 (*Clip_unk_080_unk_5C)(struct xyz_t* pos);
 typedef s32 (*Clip_unk_080_unk_68)(struct xyz_t* pos);
+typedef s32 (*MyRoomGetFurnitureProc)(u16* item, s32* furnitureId, s32 unitX, s32 unitZ, s16 layer);
+typedef void (*MyRoomRemoveFurnitureProc)(s32 furnitureId);
 typedef struct MyRoomClip {
     /* 0x00 */ UNK_TYPE1 unk_00[0x4];
     /* 0x04 */ Clip_unk_080_unk_04 unk_04;
-    /* 0x08 */ UNK_TYPE1 unk_08[0x24 - 0x08];
+    /* 0x08 */ UNK_TYPE1 unk_08[0x1C - 0x08];
+    /* 0x1C */ MyRoomGetFurnitureProc getFurniture;
+    /* 0x20 */ MyRoomRemoveFurnitureProc removeFurniture;
     /* 0x24 */ Clip_unk_080_unk_24 unk_24;
     /* 0x28 */ Clip_unk_080_unk_28 unk_28;
     /* 0x2C */ UNK_TYPE1 unk_2C[0x34 - 0x2C];
@@ -254,6 +258,13 @@ typedef struct Clip_BoxTrickData {
     /* 0x004 */ void* data;
 } Clip_BoxTrickData; // size = 0x8
 
+typedef u16 (*BrokerDesignGetFurnitureProc)(s32 unitX, s32 unitZ);
+typedef s32 (*BrokerDesignReportSalesProc)(s32 unitX, s32 unitZ);
+typedef struct BrokerDesignClip {
+    /* 0x00 */ BrokerDesignGetFurnitureProc getFurniture;
+    /* 0x04 */ BrokerDesignReportSalesProc reportSales;
+} BrokerDesignClip; // size = 0x8
+
 typedef struct Clip {
     /* 0x000 */ Clip_BoxTrickData boxTrickData[4];
     /* 0x020 */ s32 unk_020;
@@ -273,7 +284,7 @@ typedef struct Clip {
     /* 0x08C */ struct StructureClip* structureClip; 
     /* 0x090 */ Clip_unk_090* unk_090;
     /* 0x094 */ struct ToolClip* toolClip;
-    /* 0x098 */ s8 unk_098[0x4];
+    /* 0x098 */ BrokerDesignClip* brokerDesignClip;
     /* 0x09C */ Clip_unk_09C* unk_09C;
     /* 0x0A0 */ s8 unk_0A0[0x4];
     /* 0x0A4 */ Clip_unk_0A4* unk_0A4;

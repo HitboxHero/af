@@ -3,6 +3,7 @@
 
 #include "ultra64.h"
 #include "m_actor.h"
+#include "m_clip.h"
 #include "unk.h"
 
 struct Game_Play;
@@ -12,7 +13,7 @@ typedef void (*Broker_DesignActionFunc)(struct Broker_Design*, struct Game_Play*
 
 typedef struct Broker_Design {
     /* 0x000 */ Actor actor;
-    /* 0x174 */ UNK_TYPE1 unk_174[0x8];
+    /* 0x174 */ BrokerDesignClip clip;
 } Broker_Design; // size = 0x17C
 
 #endif

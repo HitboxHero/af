@@ -7,7 +7,9 @@
 struct Actor;
 
 typedef struct EventSaveInfo {
-    /* 0x00 */ char unk00[0x9C];
+    /* 0x00 */ char unk00[0x3C];
+    /* 0x3C */ u16 brokerItems[3];
+    /* 0x42 */ char unk42[0x5A];
 } EventSaveInfo; // size >= 0x9C
 
 typedef struct Event {
@@ -27,7 +29,7 @@ void mEv_ClearEventSaveInfo(EventSaveInfo* eventSaveInfo);
 void mEv_ClearEventInfo(void);
 // void func_8007D25C_jp();
 // void func_8007D2B8_jp();
-// void func_8007D318_jp();
+s32 func_8007D318_jp(u32 event);
 // void func_8007D36C_jp();
 // void func_8007D3F0_jp();
 // void func_8007D408_jp();
