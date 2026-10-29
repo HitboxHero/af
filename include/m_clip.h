@@ -202,9 +202,11 @@ typedef struct StructureClip {
 typedef void (*Clip_unk_090_unk_00)(s8, struct xyz_t, s32, s32, struct Game_Play*, s32, s32, s32);
 typedef void (*Clip_unk_090_unk_30)(Color_RGBA8, s16,s16,s32);
 typedef s32 (*Clip_unk_090_unk_3C)(Color_RGBA8*, s32*);
+typedef void (*ClipEffectKillProc)(s32 effect_id, u16 item_name);
 typedef struct Clip_unk_090 {
     /* 0x00 */ Clip_unk_090_unk_00 unk_00;
-    /* 0x04 */ UNK_TYPE1 unk_04[0x2C];
+    /* 0x04 */ ClipEffectKillProc effect_kill_proc;
+    /* 0x08 */ UNK_TYPE1 unk_08[0x28];
     /* 0x30 */ Clip_unk_090_unk_30 unk_30;
     /* 0x34 */ s8 unk_34[0x8];
     /* 0x3C */ Clip_unk_090_unk_3C unk_3C;
