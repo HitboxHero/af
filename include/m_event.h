@@ -4,6 +4,8 @@
 #include "ultra64.h"
 #include "unk.h"
 
+struct Actor;
+
 typedef struct EventSaveInfo {
     /* 0x00 */ char unk00[0x9C];
 } EventSaveInfo; // size >= 0x9C
@@ -114,7 +116,7 @@ s32 mEv_check_status_edge(s32);
 // void func_8007FFC4_jp();
 // void func_80080000_jp();
 // void func_80080040_jp();
-// void func_80080080_jp();
+u8* func_80080080_jp(s32 event, u8 id);
 // void func_80080200_jp();
 u8* mEv_get_save_area(s32,s32);
 // void func_800804AC_jp();
@@ -130,7 +132,7 @@ u8* mEv_get_save_area(s32,s32);
 // void func_80081424_jp();
 // void func_80081434_jp();
 // void func_80081460_jp();
-// void func_800814B8_jp();
+void func_800814B8_jp(s32 event, struct Actor* actor);
 // void func_800815F0_jp();
 // void func_800816C0_jp();
 // void func_8008172C_jp();
