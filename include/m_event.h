@@ -34,7 +34,7 @@ s32 func_8007D318_jp(u32 event);
 // void func_8007D3F0_jp();
 // void func_8007D408_jp();
 // void func_8007D418_jp();
-// void func_8007D42C_jp();
+void func_8007D42C_jp(void);
 // void func_8007D43C_jp();
 // void func_8007D44C_jp();
 // void func_8007D460_jp();
