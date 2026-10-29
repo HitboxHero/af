@@ -189,7 +189,9 @@ typedef struct CommonData {
     /* 0x10A39 */ s8 unk_10A39;
     /* 0x10A3A */ u8 gokiShockedFlag;
     /* 0x10A3B */ UNK_TYPE1 unk_10A3B[0x1];
-    /* 0x10A3C */ UNK_TYPE1 unk_10A3C[0x2C];
+    /* 0x10A3C */ UNK_TYPE1 unk_10A3C[0x2];
+    /* 0x10A3E */ u8 train_coming_flag;
+    /* 0x10A3F */ UNK_TYPE1 unk_10A3F[0x29];
     /* 0x10A68 */ u8 unk_10A68;
     /* 0x10A69 */ UNK_TYPE1 unk_10A69[0x2];
     /* 0x10A6B */ u8 unk10A6B;

@@ -99,7 +99,7 @@ s32 Camera2_request_main_normal(struct Game_Play* play, s32 flags, s32 priority)
 // void func_80062760_jp();
 // void func_800627A0_jp();
 // void func_80062888_jp();
-// void func_800628F0_jp();
+s32 func_800628F0_jp(struct Game_Play* play, const xyz_t* goal_center, f32 goal_delta, f32 accel_delta, f32 braking_delta, s32 priority);
 // void func_8006295C_jp();
 // void func_80062B24_jp();
 // void func_80062B74_jp();

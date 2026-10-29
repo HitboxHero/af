@@ -11,6 +11,7 @@ struct Clip_unk_040_unk_14_arg0;
 struct Clip_unk_07C_unk_0_arg0;
 struct FurnitureActor;
 struct Game_Play;
+struct DemoClip;
 struct Game;
 struct ObjectExchangeBank;
 struct ObjectStatus;
@@ -288,7 +289,7 @@ typedef struct Clip {
     /* 0x094 */ struct ToolClip* toolClip;
     /* 0x098 */ BrokerDesignClip* brokerDesignClip;
     /* 0x09C */ Clip_unk_09C* unk_09C;
-    /* 0x0A0 */ s8 unk_0A0[0x4];
+    /* 0x0A0 */ struct DemoClip* demo_clip;
     /* 0x0A4 */ Clip_unk_0A4* unk_0A4;
     /* 0x0A8 */ Clip_unk_0A8* unk_0A8;
     /* 0x0AC */ s8 unk_0AC[0x8];
