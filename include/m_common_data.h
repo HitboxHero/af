@@ -191,7 +191,13 @@ typedef struct CommonData {
     /* 0x10A3B */ UNK_TYPE1 unk_10A3B[0x1];
     /* 0x10A3C */ UNK_TYPE1 unk_10A3C[0x2];
     /* 0x10A3E */ u8 train_coming_flag;
-    /* 0x10A3F */ UNK_TYPE1 unk_10A3F[0x29];
+    /* 0x10A3F */ u8 train_exists_flag;
+    /* 0x10A40 */ UNK_TYPE1 unk_10A40[4];
+    /* 0x10A44 */ u8 train_action;
+    /* 0x10A45 */ UNK_TYPE1 unk_10A45[7];
+    /* 0x10A4C */ f32 train_speed;
+    /* 0x10A50 */ xyz_t train_position;
+    /* 0x10A5C */ UNK_TYPE1 unk_10A5C[0xC];
     /* 0x10A68 */ u8 unk_10A68;
     /* 0x10A69 */ UNK_TYPE1 unk_10A69[0x2];
     /* 0x10A6B */ u8 unk10A6B;

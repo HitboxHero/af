@@ -25,6 +25,8 @@ struct WeatherClip;
 struct xyz_t;
 struct Arrange_Room;
 
+typedef s32 (*NpcSetupActorProc)(struct Game_Play*, u16, s8, s32, s16, s32, s32, s32, s32);
+
 typedef UNK_RET (*Clip_unk_040_unk_04)(struct ActorOverlay*, const u8*, size_t, s32);
 typedef UNK_RET (*Clip_unk_040_unk_08)(void);
 typedef UNK_PTR (*Clip_unk_040_unk_0C)(size_t, const u8*, s32);
@@ -47,7 +49,7 @@ typedef UNK_RET (*Clip_unk_040_unk_110)(struct Actor*, struct Game_Play*, UNK_TY
 typedef UNK_RET (*Clip_unk_040_unk_118)(struct Actor*);
 
 typedef struct Clip_unk_040 {
-    /* 0x000 */ UNK_TYPE1 unk_00[0x4];
+    /* 0x000 */ NpcSetupActorProc setupActor_proc;
     /* 0x004 */ Clip_unk_040_unk_04 unk_04;
     /* 0x008 */ Clip_unk_040_unk_08 unk_08;
     /* 0x00C */ Clip_unk_040_unk_0C unk_0C;
@@ -202,7 +204,7 @@ typedef struct StructureClip {
     /* 0xC10 */ s32 unk_C10;
 } StructureClip; // size = 0xC14
 
-typedef void (*Clip_unk_090_unk_00)(s8, struct xyz_t, s32, s32, struct Game_Play*, s32, s32, s32);
+typedef void (*Clip_unk_090_unk_00)(s32, struct xyz_t, s32, s16, struct Game*, u16, s16, s16);
 typedef void (*Clip_unk_090_unk_30)(Color_RGBA8, s16,s16,s32);
 typedef s32 (*Clip_unk_090_unk_3C)(Color_RGBA8*, s32*);
 typedef void (*ClipEffectKillProc)(s32 effect_id, u16 item_name);
