@@ -27,6 +27,7 @@ tools:
     progress_report:
       check_asm_paths: False
       report_data: True
+      path_index: 2
       prefixes_to_trim:
         - build/assets/jp/
         - build/assets/
