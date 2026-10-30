@@ -284,7 +284,7 @@ void func_8008DCF8_jp(void);
 void func_8008E5F4_jp(xyz_t arg0);
 // void mFI_PrintNowBGNum();
 // void mFI_PrintFgAttr();
-// void func_8008E8E0_jp();
+s32 func_8008E8E0_jp(s16* pos);
 // void func_8008E9C4_jp();
 // void func_8008EA5C_jp();
 
