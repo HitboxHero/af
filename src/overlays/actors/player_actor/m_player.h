@@ -12,6 +12,8 @@ struct Game;
 struct Game_Play;
 struct Player;
 
+typedef void (*PlayerSetForcePositionAngleProc)(struct Game*, const xyz_t*, const s_xyz*, u8);
+
 typedef enum Player_StatusLevel {
     Player_WAIT,
     Player_WALK,
@@ -164,7 +166,8 @@ typedef struct Player {
     /* 0x1230 */ PlayerUnk1230Func unk_1230;
     /* 0x1234 */ PlayerUnk1234Func unk_1234;
     /* 0x1238 */ PlayerUnk1238Func unk_1238;
-    /* 0x123C */ UNK_TYPE1 unk_123C[0x8];
+    /* 0x123C */ PlayerSetForcePositionAngleProc Set_force_position_angle_proc;
+    /* 0x1240 */ UNK_TYPE1 unk_1240[4];
     /* 0x1244 */ SetMgrGetEndPosProc getEndPos;
     /* 0x1248 */ UNK_TYPE1 unk_1248[0x70];
     /* 0x12B8 */ s32 pressedAButton;
