@@ -1,4 +1,4 @@
-# Animal Forest [![Build Status][gha-badge]][gha] ![Code jp Progress] [![Discord Channel][discord-badge]][discord]
+# Animal Forest [![Upstream CI][gha-badge]][gha] ![Fork code jp — 2026-10-30][Code jp Progress] [![Discord Channel][discord-badge]][discord]
 
 [gha]: https://github.com/zeldaret/af/actions/workflows/ci.yml?query=branch%3Amain+event%3Apush
 [gha-badge]: https://img.shields.io/github/actions/workflow/status/zeldaret/af/ci.yml
@@ -13,7 +13,7 @@ There is a decompilation project for the GameCube versions (*Animal Crossing*, e
 
 This fork builds upon the original [zeldaret/af](https://github.com/zeldaret/af) project, with additional matching decompilation work and longer-term goals for localization, bug fixes, and improvements inspired by the GameCube releases.
 
-**Progress:** The code badge reflects this fork’s latest local progress report: 505,840 of 2,515,744 code bytes matched (20.11%). The build badge reflects the upstream project.
+**Fork progress snapshot (October 30, 2026):** 505,840 / 2,515,744 matched code bytes (20.11%). This dated local report is not upstream progress. The build badge represents **upstream CI**. See [progress provenance](docs/TECHNICAL.md#fork-progress-provenance).
 
 ```diff
 - WARNING! -
@@ -30,16 +30,31 @@ The objective of the matching phase is to preserve the original game's behavior 
 
 ## Project Goals
 
-The long-term goal of this fork is to preserve and improve the original Nintendo 64 version of *Animal Forest* while maintaining compatibility with original hardware.
+Preserve the original matching decompilation while developing two separate future editions for original N64 hardware:
 
-* **Complete the decompilation:** Reconstruct the original Japanese game's code in readable, maintainable C, with matching assembly and identical ROM output.
-* **English translation:** Develop a complete English localization, including dialogue, menus, item names, interface text, and other Japanese-language content.
-* **Bug fixes:** Identify and patch known bugs and glitches in the original N64 release while preserving the intended gameplay experience.
-* **GameCube feature parity:** Bring selected features, improvements, and refinements from the GameCube releases of *Animal Crossing* to the Nintendo 64 version where technically feasible.
-* **Quality-of-life improvements:** Explore optional enhancements to menus, controls, usability, and gameplay without losing the original game's identity.
-* **Hardware compatibility:** Ensure modified builds remain playable on original Nintendo 64 hardware, including appropriate cartridge and save/RTC support.
+- **Japanese matching reference:** readable C reproducing the original Japanese ROM byte-for-byte; no gameplay or text modifications.
+- **Animal Forest 64 — English Edition:** complete technical localization and verified N64 bug fixes, preserving original content, events, balance, visual identity and four human residents.
+- **Animal Forest 64 — Enhanced Edition:** inherits English and adds approved QoL, museum/Blathers, Animal Island and selected GameCube/e+ content as hardware and save constraints permit.
 
-Matching decompilation remains the immediate priority. Translation, bug fixes, and gameplay modifications will be developed separately so that the original matching build can continue to reproduce the reference ROM exactly.
+Physical e-Reader functionality is outside both editions. Planned editions and build separation are development goals, not released features.
+
+## Development roadmap and documentation
+
+Matching preservation → English playable slice → complete localization and verified fixes → stable English milestone → Enhanced save/hardware foundation → incremental content and QoL. No release date is promised.
+
+| Document | Contents |
+|---|---|
+| [Roadmap](docs/ROADMAP.md) | Phases, priorities, edition boundaries and milestone gates |
+| [Localization](docs/LOCALIZATION.md) | Message system, fonts/input, Animalese, letter scoring and translation QA |
+| [Bugs](docs/BUGS.md) | Version-gated reports, reproduction methods, proposed fixes and regressions |
+| [Quality of life](docs/QUALITY_OF_LIFE.md) | Optional Enhanced usability improvements |
+| [Enhanced Edition](docs/ENHANCED_EDITION.md) | Content specifications, dependencies and feasibility decisions |
+| [Technical plan](docs/TECHNICAL.md) | Matching workflow, ROM/RAM, saves, hardware and performance |
+| [Testing](docs/TESTING.md) | Emulator, original N64, translation and save acceptance |
+| [References](docs/REFERENCES.md) | Sources, mechanics research and provenance |
+| [Issue tracker](docs/ISSUE_TRACKER.csv) | Stable IDs, status, applicability, dependencies and acceptance |
+
+GameCube observations are research evidence, not confirmed Japanese N64 bugs. Every fix needs version applicability and before/after evidence; museum and island integration checks belong to Enhanced.
 
 ## Setup
 
